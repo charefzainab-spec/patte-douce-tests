@@ -1,0 +1,9 @@
+
+Running 2 tests using 1 worker
+
+  ok 1 parcours-annonce.spec.js:4:1 › connexion, creation d'une annonce et verification dans la liste (14.7s)
+  ok 2 parcours-annonce.spec.js:33:1 › connexion refusee avec un mauvais mot de passe (1.8s)
+
+  Slow test file: parcours-annonce.spec.js (16.5s)
+  Consider splitting slow test files to speed up parallel execution
+  2 passed (19.7s)
