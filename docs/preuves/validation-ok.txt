@@ -1,0 +1,16 @@
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\AnimalValidationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-02 titre vide"[39m[90m                              [39m [90m0.48s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-03 titre 255 car."[39m[90m                          [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-04 titre 256 car."[39m[90m                          [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-05 age -1"[39m[90m                                  [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-06 age 0"[39m[90m                                   [39m [90m0.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-07a age decimal"[39m[90m                            [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-07b age texte"[39m[90m                              [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-08a tel 20 car."[39m[90m                            [39m [90m0.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-08b tel 21 car."[39m[90m                            [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-09 description vide"[39m[90m                        [39m [90m0.07s[39m  
+
+  [90mTests:[39m    [32;1m10 passed[39;22m[90m (27 assertions)[39m
+  [90mDuration:[39m [39m0.97s[39m
+

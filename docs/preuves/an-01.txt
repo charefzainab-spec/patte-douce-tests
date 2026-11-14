@@ -1,0 +1,40 @@
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\AnimalAuthorizationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mguest is redirected to login[39m[90m                                                                [39m [90m0.40s[39m  
+  [31;1m⨯[39;22m[90m [39m[90muser cannot update another users animal[39m[90m                                                     [39m [90m0.07s[39m  
+  [31;1m⨯[39;22m[90m [39m[90muser cannot delete another users animal[39m[90m                                                     [39m [90m0.02s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AnimalAuthorizationTest[22m [90m>[39m user cannot update another users animal              
+[39;1m  Expected response status code [403] but received 302.
+Failed asserting that 302 is identical to 403.[39;22m
+
+  at [32mtests\Feature\AnimalAuthorizationTest.php[39m:[32m38[39m
+    [90m 34[0m[90m▕ [0m[35;1m            [0m[37m'description' [0m[35;1m=> [0m[37m'Modifie par un autre'[0m[35;1m,[0m
+    [90m 35[0m[90m▕ [0m[35;1m            [0m[37m'tel' [0m[35;1m=> [0m[37m'000'[0m[35;1m,[0m
+    [90m 36[0m[90m▕ [0m[35;1m        ]);[0m
+    [90m 37[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 38[0m[90m▕ [0m[35;1m        [0m[39;1m$response[0m[35;1m->[0m[39;1massertForbidden[0m[35;1m();[0m
+    [90m 39[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1massertDatabaseHas[0m[35;1m([0m[37m'animals'[0m[35;1m, [[0m
+    [90m 40[0m[90m▕ [0m[35;1m            [0m[37m'id' [0m[35;1m=> [0m[39;1m$animal[0m[35;1m->[0m[39;1mid[0m[35;1m,[0m
+    [90m 41[0m[90m▕ [0m[35;1m            [0m[37m'titre' [0m[35;1m=> [0m[37m'Titre original'[0m[35;1m,[0m
+    [90m 42[0m[90m▕ [0m[35;1m        ]);[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AnimalAuthorizationTest[22m [90m>[39m user cannot delete another users animal              
+[39;1m  Expected response status code [403] but received 302.
+Failed asserting that 302 is identical to 403.[39;22m
+
+  at [32mtests\Feature\AnimalAuthorizationTest.php[39m:[32m54[39m
+    [90m 50[0m[90m▕ [0m[35;1m        [0m[39;1m$animal [0m[35;1m= [0m[39;1mAnimal[0m[35;1m::[0m[39;1mfactory[0m[35;1m()->[0m[39;1mcreate[0m[35;1m([[0m[37m'user_id' [0m[35;1m=> [0m[39;1m$owner[0m[35;1m->[0m[39;1mid[0m[35;1m]);[0m
+    [90m 51[0m[90m▕ [0m
+    [90m 52[0m[90m▕ [0m[35;1m        [0m[39;1m$response [0m[35;1m= [0m[39;1m$this[0m[35;1m->[0m[39;1mactingAs[0m[35;1m([0m[39;1m$intruder[0m[35;1m)->[0m[39;1mdelete[0m[35;1m([0m[37m'/animals/' [0m[35;1m. [0m[39;1m$animal[0m[35;1m->[0m[39;1mid[0m[35;1m);[0m
+    [90m 53[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 54[0m[90m▕ [0m[35;1m        [0m[39;1m$response[0m[35;1m->[0m[39;1massertForbidden[0m[35;1m();[0m
+    [90m 55[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1massertDatabaseHas[0m[35;1m([0m[37m'animals'[0m[35;1m, [[0m[37m'id' [0m[35;1m=> [0m[39;1m$animal[0m[35;1m->[0m[39;1mid[0m[35;1m]);[0m
+    [90m 56[0m[90m▕ [0m[35;1m    }[0m
+    [90m 57[0m[90m▕ [0m[35;1m}[0m
+
+
+  [90mTests:[39m    [31;1m2 failed[39;22m[90m,[39m[39m [39m[32;1m1 passed[39;22m[90m (4 assertions)[39m
+  [90mDuration:[39m [39m0.59s[39m
+

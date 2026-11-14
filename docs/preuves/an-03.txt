@@ -1,0 +1,23 @@
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\AnimalApiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mapi show returns 404 for unknown animal[39m[90m                                                     [39m [90m0.44s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi store rejects missing fields[39m[90m                                                            [39m [90m0.03s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mapi store requires authentication[39m[90m                                                           [39m [90m0.09s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AnimalApiTest[22m [90m>[39m api store requires authentication                              
+[39;1m  Expected response status code [401] but received 201.
+Failed asserting that 201 is identical to 401.[39;22m
+
+  at [32mtests\Feature\AnimalApiTest.php[39m:[32m38[39m
+    [90m 34[0m[90m▕ [0m[35;1m            [0m[37m'description' [0m[35;1m=> [0m[37m'Un chien gentil'[0m[35;1m,[0m
+    [90m 35[0m[90m▕ [0m[35;1m            [0m[37m'age' [0m[35;1m=> [0m[39;1m3[0m[35;1m,[0m
+    [90m 36[0m[90m▕ [0m[35;1m            [0m[37m'race' [0m[35;1m=> [0m[37m'Labrador'[0m[35;1m,[0m
+    [90m 37[0m[90m▕ [0m[35;1m            [0m[37m'user_id' [0m[35;1m=> [0m[39;1m$user[0m[35;1m->[0m[39;1mid[0m[35;1m,[0m
+[31;1m  ➜ [0m[3;1m 38[0m[90m▕ [0m[35;1m        ])->[0m[39;1massertUnauthorized[0m[35;1m();[0m
+    [90m 39[0m[90m▕ [0m[35;1m    }[0m
+    [90m 40[0m[90m▕ [0m[35;1m}[0m
+
+
+  [90mTests:[39m    [31;1m1 failed[39;22m[90m,[39m[39m [39m[32;1m2 passed[39;22m[90m (10 assertions)[39m
+  [90mDuration:[39m [39m0.63s[39m
+
