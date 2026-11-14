@@ -35,11 +35,11 @@ class AnimalAuthorizationTest extends TestCase
             'tel' => '000',
         ]);
 
-        $response->assertForbidden();
         $this->assertDatabaseHas('animals', [
             'id' => $animal->id,
             'titre' => 'Titre original',
         ]);
+        $response->assertForbidden();
     }
 
     // CT-14 / EX-A
@@ -51,7 +51,7 @@ class AnimalAuthorizationTest extends TestCase
 
         $response = $this->actingAs($intruder)->delete('/animals/' . $animal->id);
 
-        $response->assertForbidden();
         $this->assertDatabaseHas('animals', ['id' => $animal->id]);
+        $response->assertForbidden();
     }
 }

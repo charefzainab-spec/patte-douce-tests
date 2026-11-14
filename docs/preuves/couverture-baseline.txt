@@ -1,0 +1,322 @@
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Unit\ExampleTest[39m
+  [32;1m✓[39;22m[90m [39m[90mthat true is true[39m[90m                                                                           [39m [90m0.13s[39m  
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\AnimalApiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mapi show returns 404 for unknown animal[39m[90m                                                     [39m [90m1.24s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi store rejects missing fields[39m[90m                                                            [39m [90m0.11s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mapi store requires authentication[39m[90m                                                           [39m [90m0.19s[39m  
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\AnimalAuthorizationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mguest is redirected to login[39m[90m                                                                [39m [90m0.27s[39m  
+  [31;1m⨯[39;22m[90m [39m[90muser cannot update another users animal[39m[90m                                                     [39m [90m0.21s[39m  
+  [31;1m⨯[39;22m[90m [39m[90muser cannot delete another users animal[39m[90m                                                     [39m [90m0.10s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\AnimalIntegrationTest[39m
+  [32;1m✓[39;22m[90m [39m[90muser can create animal[39m[90m                                                                      [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can view animals[39m[90m                                                                       [39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can update animal[39m[90m                                                                      [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can delete animal[39m[90m                                                                      [39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90manimal cannot be created without title[39m[90m                                                      [39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90manimal cannot reference nonexistent user[39m[90m                                                    [39m [90m0.14s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\AnimalValidationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-02 titre vide"[39m[90m                              [39m [90m0.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-03 titre 255 car."[39m[90m                          [39m [90m0.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-04 titre 256 car."[39m[90m                          [39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-05 age -1"[39m[90m                                  [39m [90m0.17s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-06 age 0"[39m[90m                                   [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-07a age decimal"[39m[90m                            [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-07b age texte"[39m[90m                              [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-08a tel 20 car."[39m[90m                            [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-08b tel 21 car."[39m[90m                            [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstore validation boundaries with data set " c t-09 description vide"[39m[90m                        [39m [90m0.07s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\AuthenticationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mlogin screen can be rendered[39m[90m                                                                [39m [90m0.15s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can authenticate using the login screen[39m[90m                                               [39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can not authenticate with invalid password[39m[90m                                            [39m [90m0.30s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can logout[39m[90m                                                                            [39m [90m0.08s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\EmailVerificationTest[39m
+  [32;1m✓[39;22m[90m [39m[90memail verification screen can be rendered[39m[90m                                                   [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail can be verified[39m[90m                                                                       [39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail is not verified with invalid hash[39m[90m                                                     [39m [90m0.10s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\PasswordConfirmationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mconfirm password screen can be rendered[39m[90m                                                     [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mpassword can be confirmed[39m[90m                                                                   [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mpassword is not confirmed with invalid password[39m[90m                                             [39m [90m0.31s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\PasswordResetTest[39m
+  [32;1m✓[39;22m[90m [39m[90mreset password link screen can be rendered[39m[90m                                                  [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mreset password link can be requested[39m[90m                                                        [39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90mreset password screen can be rendered[39m[90m                                                       [39m [90m0.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90mpassword can be reset with valid token[39m[90m                                                      [39m [90m0.12s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\PasswordUpdateTest[39m
+  [32;1m✓[39;22m[90m [39m[90mpassword can be updated[39m[90m                                                                     [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcorrect password must be provided to update password[39m[90m                                        [39m [90m0.08s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\RegistrationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mregistration screen can be rendered[39m[90m                                                         [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mnew users can register[39m[90m                                                                      [39m [90m0.09s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\ExampleTest[39m
+  [32;1m✓[39;22m[90m [39m[90mthe application returns a successful response[39m[90m                                               [39m [90m0.07s[39m  
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\LostFoundTest[39m
+  [31;1m⨯[39;22m[90m [39m[90mstore rejects empty form[39m[90m                                                                    [39m [90m0.64s[39m  
+  [31;1m⨯[39;22m[90m [39m[90msearch does not crash[39m[90m                                                                       [39m [90m0.45s[39m  
+  [32;1m✓[39;22m[90m [39m[90mindex is displayed[39m[90m                                                                          [39m [90m0.09s[39m  
+  [31;1m⨯[39;22m[90m [39m[90muser cannot update another users lostfound[39m[90m                                                  [39m [90m0.10s[39m  
+  [31;1m⨯[39;22m[90m [39m[90muser cannot delete another users lostfound[39m[90m                                                  [39m [90m0.11s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\ProfileTest[39m
+  [32;1m✓[39;22m[90m [39m[90mprofile page is displayed[39m[90m                                                                   [39m [90m0.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90mprofile information can be updated[39m[90m                                                          [39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail verification status is unchanged when the email address is unchanged[39m[90m                  [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can delete their account[39m[90m                                                               [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcorrect password must be provided to delete account[39m[90m                                         [39m [90m0.11s[39m  
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\RoleAccessTest[39m
+  [32;1m✓[39;22m[90m [39m[90mguest cannot access admin dashboard[39m[90m                                                         [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90msimple user cannot access admin dashboard[39m[90m                                                   [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can access admin dashboard[39m[90m                                                            [39m [90m0.11s[39m  
+  [31;1m⨯[39;22m[90m [39m[90msimple user cannot delete vet[39m[90m                                                               [39m [90m0.14s[39m  
+  [31;1m⨯[39;22m[90m [39m[90msimple user cannot create vet[39m[90m                                                               [39m [90m0.09s[39m  
+  [31;1m⨯[39;22m[90m [39m[90msimple user cannot update vet[39m[90m                                                               [39m [90m0.10s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mvet show page is displayed[39m[90m                                                                  [39m [90m0.52s[39m  
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\VetValidationTest[39m
+  [32;1m✓[39;22m[90m [39m[90madmin cannot create vet without name[39m[90m                                                        [39m [90m0.12s[39m  
+  [31;1m⨯[39;22m[90m [39m[90madmin cannot create vet with invalid email[39m[90m                                                  [39m [90m0.10s[39m  
+  [31;1m⨯[39;22m[90m [39m[90madmin cannot update vet with empty name[39m[90m                                                     [39m [90m0.49s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AnimalApiTest[22m [90m>[39m api store requires authentication                              
+[39;1m  Expected response status code [401] but received 201.
+Failed asserting that 201 is identical to 401.[39;22m
+
+  at [32mtests\Feature\AnimalApiTest.php[39m:[32m38[39m
+    [90m 34[0m[90m▕ [0m[35;1m            [0m[37m'description' [0m[35;1m=> [0m[37m'Un chien gentil'[0m[35;1m,[0m
+    [90m 35[0m[90m▕ [0m[35;1m            [0m[37m'age' [0m[35;1m=> [0m[39;1m3[0m[35;1m,[0m
+    [90m 36[0m[90m▕ [0m[35;1m            [0m[37m'race' [0m[35;1m=> [0m[37m'Labrador'[0m[35;1m,[0m
+    [90m 37[0m[90m▕ [0m[35;1m            [0m[37m'user_id' [0m[35;1m=> [0m[39;1m$user[0m[35;1m->[0m[39;1mid[0m[35;1m,[0m
+[31;1m  ➜ [0m[3;1m 38[0m[90m▕ [0m[35;1m        ])->[0m[39;1massertUnauthorized[0m[35;1m();[0m
+    [90m 39[0m[90m▕ [0m[35;1m    }[0m
+    [90m 40[0m[90m▕ [0m[35;1m}[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AnimalAuthorizationTest[22m [90m>[39m user cannot update another users animal              
+[39;1m  Expected response status code [403] but received 302.
+Failed asserting that 302 is identical to 403.[39;22m
+
+  at [32mtests\Feature\AnimalAuthorizationTest.php[39m:[32m38[39m
+    [90m 34[0m[90m▕ [0m[35;1m            [0m[37m'description' [0m[35;1m=> [0m[37m'Modifie par un autre'[0m[35;1m,[0m
+    [90m 35[0m[90m▕ [0m[35;1m            [0m[37m'tel' [0m[35;1m=> [0m[37m'000'[0m[35;1m,[0m
+    [90m 36[0m[90m▕ [0m[35;1m        ]);[0m
+    [90m 37[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 38[0m[90m▕ [0m[35;1m        [0m[39;1m$response[0m[35;1m->[0m[39;1massertForbidden[0m[35;1m();[0m
+    [90m 39[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1massertDatabaseHas[0m[35;1m([0m[37m'animals'[0m[35;1m, [[0m
+    [90m 40[0m[90m▕ [0m[35;1m            [0m[37m'id' [0m[35;1m=> [0m[39;1m$animal[0m[35;1m->[0m[39;1mid[0m[35;1m,[0m
+    [90m 41[0m[90m▕ [0m[35;1m            [0m[37m'titre' [0m[35;1m=> [0m[37m'Titre original'[0m[35;1m,[0m
+    [90m 42[0m[90m▕ [0m[35;1m        ]);[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AnimalAuthorizationTest[22m [90m>[39m user cannot delete another users animal              
+[39;1m  Expected response status code [403] but received 302.
+Failed asserting that 302 is identical to 403.[39;22m
+
+  at [32mtests\Feature\AnimalAuthorizationTest.php[39m:[32m54[39m
+    [90m 50[0m[90m▕ [0m[35;1m        [0m[39;1m$animal [0m[35;1m= [0m[39;1mAnimal[0m[35;1m::[0m[39;1mfactory[0m[35;1m()->[0m[39;1mcreate[0m[35;1m([[0m[37m'user_id' [0m[35;1m=> [0m[39;1m$owner[0m[35;1m->[0m[39;1mid[0m[35;1m]);[0m
+    [90m 51[0m[90m▕ [0m
+    [90m 52[0m[90m▕ [0m[35;1m        [0m[39;1m$response [0m[35;1m= [0m[39;1m$this[0m[35;1m->[0m[39;1mactingAs[0m[35;1m([0m[39;1m$intruder[0m[35;1m)->[0m[39;1mdelete[0m[35;1m([0m[37m'/animals/' [0m[35;1m. [0m[39;1m$animal[0m[35;1m->[0m[39;1mid[0m[35;1m);[0m
+    [90m 53[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 54[0m[90m▕ [0m[35;1m        [0m[39;1m$response[0m[35;1m->[0m[39;1massertForbidden[0m[35;1m();[0m
+    [90m 55[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1massertDatabaseHas[0m[35;1m([0m[37m'animals'[0m[35;1m, [[0m[37m'id' [0m[35;1m=> [0m[39;1m$animal[0m[35;1m->[0m[39;1mid[0m[35;1m]);[0m
+    [90m 56[0m[90m▕ [0m[35;1m    }[0m
+    [90m 57[0m[90m▕ [0m[35;1m}[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\LostFoundTest[22m [90m>[39m store rejects empty form                                       
+[39;1m  Session is missing expected key [errors].
+Failed asserting that false is true.[39;22m
+
+  at [32mtests\Feature\LostFoundTest.php[39m:[32m32[39m
+    [90m 28[0m[90m▕ [0m[35;1m        [0m[39;1m$user [0m[35;1m= [0m[39;1mUser[0m[35;1m::[0m[39;1mfactory[0m[35;1m()->[0m[39;1mcreate[0m[35;1m();[0m
+    [90m 29[0m[90m▕ [0m
+    [90m 30[0m[90m▕ [0m[35;1m        [0m[39;1m$response [0m[35;1m= [0m[39;1m$this[0m[35;1m->[0m[39;1mactingAs[0m[35;1m([0m[39;1m$user[0m[35;1m)->[0m[39;1mpost[0m[35;1m([0m[37m'/lost-found'[0m[35;1m, []);[0m
+    [90m 31[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 32[0m[90m▕ [0m[35;1m        [0m[39;1m$response[0m[35;1m->[0m[39;1massertSessionHasErrors[0m[35;1m([[0m[37m'type'[0m[35;1m, [0m[37m'description'[0m[35;1m, [0m[37m'localisation'[0m[35;1m, [0m[37m'contact'[0m[35;1m]);[0m
+    [90m 33[0m[90m▕ [0m[35;1m    }[0m
+    [90m 34[0m[90m▕ [0m
+    [90m 35[0m[90m▕ [0m[35;1m    [0m[90;3m// CT-25 / AN-09 : la recherche ne doit pas planter[0m
+    [90m 36[0m[90m▕ [0m[90;3m    [0m[35;1mpublic function [0m[39;1mtest_search_does_not_crash[0m[35;1m(): [0m[39;1mvoid[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\LostFoundTest[22m [90m>[39m search does not crash                                          
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.[39;22m
+
+  at [32mtests\Feature\LostFoundTest.php[39m:[32m41[39m
+    [90m 37[0m[90m▕ [0m[39;1m    [0m[35;1m{[0m
+    [90m 38[0m[90m▕ [0m[35;1m        [0m[39;1m$user [0m[35;1m= [0m[39;1mUser[0m[35;1m::[0m[39;1mfactory[0m[35;1m()->[0m[39;1mcreate[0m[35;1m();[0m
+    [90m 39[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1mlost[0m[35;1m([0m[39;1m$user[0m[35;1m);[0m
+    [90m 40[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 41[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1mactingAs[0m[35;1m([0m[39;1m$user[0m[35;1m)->[0m[39;1mget[0m[35;1m([0m[37m'/lost-found?search=chat'[0m[35;1m)->[0m[39;1massertOk[0m[35;1m();[0m
+    [90m 42[0m[90m▕ [0m[35;1m    }[0m
+    [90m 43[0m[90m▕ [0m
+    [90m 44[0m[90m▕ [0m[35;1m    [0m[90;3m// CT-26 : consultation sans recherche[0m
+    [90m 45[0m[90m▕ [0m[90;3m    [0m[35;1mpublic function [0m[39;1mtest_index_is_displayed[0m[35;1m(): [0m[39;1mvoid[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\LostFoundTest[22m [90m>[39m user cannot update another users lostfound                     
+[39;1m  Failed asserting that a row in the table [lost_founds] matches the attributes {
+    "id": 3,
+    "description": "Chat noir perdu"
+}.
+
+Found similar results: [
+    {
+        "id": 3,
+        "description": "Modifie par un autre"
+    }
+].[39;22m
+
+  at [32mtests\Feature\LostFoundTest.php[39m:[32m69[39m
+    [90m 65[0m[90m▕ [0m[35;1m        ]);[0m
+    [90m 66[0m[90m▕ [0m
+    [90m 67[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1massertDatabaseHas[0m[35;1m([0m[37m'lost_founds'[0m[35;1m, [[0m
+    [90m 68[0m[90m▕ [0m[35;1m            [0m[37m'id' [0m[35;1m=> [0m[39;1m$lost[0m[35;1m->[0m[39;1mid[0m[35;1m,[0m
+[31;1m  ➜ [0m[3;1m 69[0m[90m▕ [0m[35;1m            [0m[37m'description' [0m[35;1m=> [0m[37m'Chat noir perdu'[0m[35;1m,[0m
+    [90m 70[0m[90m▕ [0m[35;1m        ]);[0m
+    [90m 71[0m[90m▕ [0m[35;1m        [0m[39;1m$response[0m[35;1m->[0m[39;1massertForbidden[0m[35;1m();[0m
+    [90m 72[0m[90m▕ [0m[35;1m    }[0m
+    [90m 73[0m[90m▕ [0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\LostFoundTest[22m [90m>[39m user cannot delete another users lostfound                     
+[39;1m  Failed asserting that a row in the table [lost_founds] matches the attributes {
+    "id": 4
+}.
+
+The table is empty.[39;22m
+
+  at [32mtests\Feature\LostFoundTest.php[39m:[32m83[39m
+    [90m 79[0m[90m▕ [0m[35;1m        [0m[39;1m$lost [0m[35;1m= [0m[39;1m$this[0m[35;1m->[0m[39;1mlost[0m[35;1m([0m[39;1m$owner[0m[35;1m);[0m
+    [90m 80[0m[90m▕ [0m
+    [90m 81[0m[90m▕ [0m[35;1m        [0m[39;1m$response [0m[35;1m= [0m[39;1m$this[0m[35;1m->[0m[39;1mactingAs[0m[35;1m([0m[39;1m$intruder[0m[35;1m)->[0m[39;1mdelete[0m[35;1m([0m[37m'/lost-found/' [0m[35;1m. [0m[39;1m$lost[0m[35;1m->[0m[39;1mid[0m[35;1m);[0m
+    [90m 82[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 83[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1massertDatabaseHas[0m[35;1m([0m[37m'lost_founds'[0m[35;1m, [[0m[37m'id' [0m[35;1m=> [0m[39;1m$lost[0m[35;1m->[0m[39;1mid[0m[35;1m]);[0m
+    [90m 84[0m[90m▕ [0m[35;1m        [0m[39;1m$response[0m[35;1m->[0m[39;1massertForbidden[0m[35;1m();[0m
+    [90m 85[0m[90m▕ [0m[35;1m    }[0m
+    [90m 86[0m[90m▕ [0m[35;1m}[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\RoleAccessTest[22m [90m>[39m simple user cannot delete vet                                 
+[39;1m  Failed asserting that a row in the table [veterinaires] matches the attributes {
+    "id": 1
+}.
+
+The table is empty.[39;22m
+
+  at [32mtests\Feature\RoleAccessTest.php[39m:[32m54[39m
+    [90m 50[0m[90m▕ [0m[35;1m        [0m[39;1m$vet [0m[35;1m= [0m[39;1m$this[0m[35;1m->[0m[39;1mvet[0m[35;1m();[0m
+    [90m 51[0m[90m▕ [0m
+    [90m 52[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1mactingAs[0m[35;1m([0m[39;1m$user[0m[35;1m)->[0m[39;1mdelete[0m[35;1m([0m[37m'/vet/' [0m[35;1m. [0m[39;1m$vet[0m[35;1m->[0m[39;1mid[0m[35;1m);[0m
+    [90m 53[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 54[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1massertDatabaseHas[0m[35;1m([0m[37m'veterinaires'[0m[35;1m, [[0m[37m'id' [0m[35;1m=> [0m[39;1m$vet[0m[35;1m->[0m[39;1mid[0m[35;1m]);[0m
+    [90m 55[0m[90m▕ [0m[35;1m    }[0m
+    [90m 56[0m[90m▕ [0m
+    [90m 57[0m[90m▕ [0m[35;1m    [0m[90;3m// CT-21 / AN-05 : un simple utilisateur ne doit pas creer un veterinaire[0m
+    [90m 58[0m[90m▕ [0m[90;3m    [0m[35;1mpublic function [0m[39;1mtest_simple_user_cannot_create_vet[0m[35;1m(): [0m[39;1mvoid[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\RoleAccessTest[22m [90m>[39m simple user cannot create vet                                 
+[39;1m  Failed asserting that table [veterinaires] matches expected entries count of 0. Entries found: 1.
+.[39;22m
+
+  at [32mtests\Feature\RoleAccessTest.php[39m:[32m69[39m
+    [90m 65[0m[90m▕ [0m[35;1m            [0m[37m'telephone' [0m[35;1m=> [0m[37m'00000000'[0m[35;1m,[0m
+    [90m 66[0m[90m▕ [0m[35;1m            [0m[37m'adresse' [0m[35;1m=> [0m[37m'Nulle part'[0m[35;1m,[0m
+    [90m 67[0m[90m▕ [0m[35;1m        ]);[0m
+    [90m 68[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 69[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1massertDatabaseCount[0m[35;1m([0m[37m'veterinaires'[0m[35;1m, [0m[39;1m0[0m[35;1m);[0m
+    [90m 70[0m[90m▕ [0m[35;1m    }[0m
+    [90m 71[0m[90m▕ [0m
+    [90m 72[0m[90m▕ [0m[35;1m    [0m[90;3m// CT-22 / AN-05 : un simple utilisateur ne doit pas modifier un veterinaire[0m
+    [90m 73[0m[90m▕ [0m[90;3m    [0m[35;1mpublic function [0m[39;1mtest_simple_user_cannot_update_vet[0m[35;1m(): [0m[39;1mvoid[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\RoleAccessTest[22m [90m>[39m simple user cannot update vet                                 
+[39;1m  Failed asserting that a row in the table [veterinaires] matches the attributes {
+    "id": 3,
+    "nom": "Dr Test"
+}.
+
+Found similar results: [
+    {
+        "id": 3,
+        "nom": "Nom pirate"
+    }
+].[39;22m
+
+  at [32mtests\Feature\RoleAccessTest.php[39m:[32m85[39m
+    [90m 81[0m[90m▕ [0m[35;1m            [0m[37m'telephone' [0m[35;1m=> [0m[37m'1'[0m[35;1m,[0m
+    [90m 82[0m[90m▕ [0m[35;1m            [0m[37m'adresse' [0m[35;1m=> [0m[37m'X'[0m[35;1m,[0m
+    [90m 83[0m[90m▕ [0m[35;1m        ]);[0m
+    [90m 84[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 85[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1massertDatabaseHas[0m[35;1m([0m[37m'veterinaires'[0m[35;1m, [[0m[37m'id' [0m[35;1m=> [0m[39;1m$vet[0m[35;1m->[0m[39;1mid[0m[35;1m, [0m[37m'nom' [0m[35;1m=> [0m[37m'Dr Test'[0m[35;1m]);[0m
+    [90m 86[0m[90m▕ [0m[35;1m    }[0m
+    [90m 87[0m[90m▕ [0m
+    [90m 88[0m[90m▕ [0m[35;1m    [0m[90;3m// CT-23 / AN-07 : la fiche d'un veterinaire doit s'afficher[0m
+    [90m 89[0m[90m▕ [0m[90;3m    [0m[35;1mpublic function [0m[39;1mtest_vet_show_page_is_displayed[0m[35;1m(): [0m[39;1mvoid[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\RoleAccessTest[22m [90m>[39m vet show page is displayed                                    
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.[39;22m
+
+  at [32mtests\Feature\RoleAccessTest.php[39m:[32m94[39m
+    [90m 90[0m[90m▕ [0m[39;1m    [0m[35;1m{[0m
+    [90m 91[0m[90m▕ [0m[35;1m        [0m[39;1m$user [0m[35;1m= [0m[39;1mUser[0m[35;1m::[0m[39;1mfactory[0m[35;1m()->[0m[39;1mcreate[0m[35;1m();[0m
+    [90m 92[0m[90m▕ [0m[35;1m        [0m[39;1m$vet [0m[35;1m= [0m[39;1m$this[0m[35;1m->[0m[39;1mvet[0m[35;1m();[0m
+    [90m 93[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 94[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1mactingAs[0m[35;1m([0m[39;1m$user[0m[35;1m)->[0m[39;1mget[0m[35;1m([0m[37m'/vet/' [0m[35;1m. [0m[39;1m$vet[0m[35;1m->[0m[39;1mid[0m[35;1m)->[0m[39;1massertOk[0m[35;1m();[0m
+    [90m 95[0m[90m▕ [0m[35;1m    }[0m
+    [90m 96[0m[90m▕ [0m[35;1m}[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\VetValidationTest[22m [90m>[39m admin cannot create vet with invalid email                 
+[39;1m  Session is missing expected key [errors].
+Failed asserting that false is true.[39;22m
+
+  at [32mtests\Feature\VetValidationTest.php[39m:[32m37[39m
+    [90m 33[0m[90m▕ [0m[35;1m            [0m[37m'nom' [0m[35;1m=> [0m[37m'Dr Test'[0m[35;1m,[0m
+    [90m 34[0m[90m▕ [0m[35;1m            [0m[37m'email' [0m[35;1m=> [0m[37m'pas-un-email'[0m[35;1m,[0m
+    [90m 35[0m[90m▕ [0m[35;1m            [0m[37m'telephone' [0m[35;1m=> [0m[37m'12345678'[0m[35;1m,[0m
+    [90m 36[0m[90m▕ [0m[35;1m            [0m[37m'adresse' [0m[35;1m=> [0m[37m'Tunis'[0m[35;1m,[0m
+[31;1m  ➜ [0m[3;1m 37[0m[90m▕ [0m[35;1m        ])->[0m[39;1massertSessionHasErrors[0m[35;1m([0m[37m'email'[0m[35;1m);[0m
+    [90m 38[0m[90m▕ [0m[35;1m    }[0m
+    [90m 39[0m[90m▕ [0m
+    [90m 40[0m[90m▕ [0m[35;1m    [0m[90;3m// CT-31 / AN-11 : update sans validation[0m
+    [90m 41[0m[90m▕ [0m[90;3m    [0m[35;1mpublic function [0m[39;1mtest_admin_cannot_update_vet_with_empty_name[0m[35;1m(): [0m[39;1mvoid[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\VetValidationTest[22m [90m>[39m admin cannot update vet with empty name                    
+[39;1m  Session is missing expected key [errors].
+Failed asserting that false is true.[39;22m
+
+  at [32mtests\Feature\VetValidationTest.php[39m:[32m55[39m
+    [90m 51[0m[90m▕ [0m[35;1m            [0m[37m'nom' [0m[35;1m=> [0m[37m''[0m[35;1m,[0m
+    [90m 52[0m[90m▕ [0m[35;1m            [0m[37m'email' [0m[35;1m=> [0m[37m'dr@test.com'[0m[35;1m,[0m
+    [90m 53[0m[90m▕ [0m[35;1m            [0m[37m'telephone' [0m[35;1m=> [0m[37m'12345678'[0m[35;1m,[0m
+    [90m 54[0m[90m▕ [0m[35;1m            [0m[37m'adresse' [0m[35;1m=> [0m[37m'Tunis'[0m[35;1m,[0m
+[31;1m  ➜ [0m[3;1m 55[0m[90m▕ [0m[35;1m        ])->[0m[39;1massertSessionHasErrors[0m[35;1m([0m[37m'nom'[0m[35;1m);[0m
+    [90m 56[0m[90m▕ [0m[35;1m    }[0m
+    [90m 57[0m[90m▕ [0m[35;1m}[0m
+
+
+  [90mTests:[39m    [31;1m13 failed[39;22m[90m,[39m[39m [39m[32;1m49 passed[39;22m[90m (135 assertions)[39m
+  [90mDuration:[39m [39m10.98s[39m
+
