@@ -1,0 +1,10 @@
+PHPUnit 10.5.63 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.1.10
+Configuration: C:\laragon\www\animal-adoption\phpunit.xml
+
+...                                                                 3 / 3 (100%)
+
+Time: 00:01.623, Memory: 44.00 MB
+
+[30;42mOK (3 tests, 8 assertions)[0m
