@@ -1,0 +1,39 @@
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\VetValidationTest[39m
+  [32;1m✓[39;22m[90m [39m[90madmin cannot create vet without name[39m[90m                                                        [39m [90m0.44s[39m  
+  [31;1m⨯[39;22m[90m [39m[90madmin cannot create vet with invalid email[39m[90m                                                  [39m [90m0.04s[39m  
+  [31;1m⨯[39;22m[90m [39m[90madmin cannot update vet with empty name[39m[90m                                                     [39m [90m0.39s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\VetValidationTest[22m [90m>[39m admin cannot create vet with invalid email                 
+[39;1m  Session is missing expected key [errors].
+Failed asserting that false is true.[39;22m
+
+  at [32mtests\Feature\VetValidationTest.php[39m:[32m37[39m
+    [90m 33[0m[90m▕ [0m[35;1m            [0m[37m'nom' [0m[35;1m=> [0m[37m'Dr Test'[0m[35;1m,[0m
+    [90m 34[0m[90m▕ [0m[35;1m            [0m[37m'email' [0m[35;1m=> [0m[37m'pas-un-email'[0m[35;1m,[0m
+    [90m 35[0m[90m▕ [0m[35;1m            [0m[37m'telephone' [0m[35;1m=> [0m[37m'12345678'[0m[35;1m,[0m
+    [90m 36[0m[90m▕ [0m[35;1m            [0m[37m'adresse' [0m[35;1m=> [0m[37m'Tunis'[0m[35;1m,[0m
+[31;1m  ➜ [0m[3;1m 37[0m[90m▕ [0m[35;1m        ])->[0m[39;1massertSessionHasErrors[0m[35;1m([0m[37m'email'[0m[35;1m);[0m
+    [90m 38[0m[90m▕ [0m[35;1m    }[0m
+    [90m 39[0m[90m▕ [0m
+    [90m 40[0m[90m▕ [0m[35;1m    [0m[90;3m// CT-31 / AN-11 : update sans validation[0m
+    [90m 41[0m[90m▕ [0m[90;3m    [0m[35;1mpublic function [0m[39;1mtest_admin_cannot_update_vet_with_empty_name[0m[35;1m(): [0m[39;1mvoid[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\VetValidationTest[22m [90m>[39m admin cannot update vet with empty name                    
+[39;1m  Session is missing expected key [errors].
+Failed asserting that false is true.[39;22m
+
+  at [32mtests\Feature\VetValidationTest.php[39m:[32m55[39m
+    [90m 51[0m[90m▕ [0m[35;1m            [0m[37m'nom' [0m[35;1m=> [0m[37m''[0m[35;1m,[0m
+    [90m 52[0m[90m▕ [0m[35;1m            [0m[37m'email' [0m[35;1m=> [0m[37m'dr@test.com'[0m[35;1m,[0m
+    [90m 53[0m[90m▕ [0m[35;1m            [0m[37m'telephone' [0m[35;1m=> [0m[37m'12345678'[0m[35;1m,[0m
+    [90m 54[0m[90m▕ [0m[35;1m            [0m[37m'adresse' [0m[35;1m=> [0m[37m'Tunis'[0m[35;1m,[0m
+[31;1m  ➜ [0m[3;1m 55[0m[90m▕ [0m[35;1m        ])->[0m[39;1massertSessionHasErrors[0m[35;1m([0m[37m'nom'[0m[35;1m);[0m
+    [90m 56[0m[90m▕ [0m[35;1m    }[0m
+    [90m 57[0m[90m▕ [0m[35;1m}[0m
+
+
+  [90mTests:[39m    [31;1m2 failed[39;22m[90m,[39m[39m [39m[32;1m1 passed[39;22m[90m (4 assertions)[39m
+  [90mDuration:[39m [39m0.95s[39m
+

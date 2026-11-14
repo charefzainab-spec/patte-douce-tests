@@ -1,0 +1,87 @@
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\RoleAccessTest[39m
+  [32;1m✓[39;22m[90m [39m[90mguest cannot access admin dashboard[39m[90m                                                         [39m [90m0.45s[39m  
+  [32;1m✓[39;22m[90m [39m[90msimple user cannot access admin dashboard[39m[90m                                                   [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can access admin dashboard[39m[90m                                                            [39m [90m0.05s[39m  
+  [31;1m⨯[39;22m[90m [39m[90msimple user cannot delete vet[39m[90m                                                               [39m [90m0.03s[39m  
+  [31;1m⨯[39;22m[90m [39m[90msimple user cannot create vet[39m[90m                                                               [39m [90m0.04s[39m  
+  [31;1m⨯[39;22m[90m [39m[90msimple user cannot update vet[39m[90m                                                               [39m [90m0.03s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mvet show page is displayed[39m[90m                                                                  [39m [90m0.45s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\RoleAccessTest[22m [90m>[39m simple user cannot delete vet                                 
+[39;1m  Failed asserting that a row in the table [veterinaires] matches the attributes {
+    "id": 1
+}.
+
+The table is empty.[39;22m
+
+  at [32mtests\Feature\RoleAccessTest.php[39m:[32m54[39m
+    [90m 50[0m[90m▕ [0m[35;1m        [0m[39;1m$vet [0m[35;1m= [0m[39;1m$this[0m[35;1m->[0m[39;1mvet[0m[35;1m();[0m
+    [90m 51[0m[90m▕ [0m
+    [90m 52[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1mactingAs[0m[35;1m([0m[39;1m$user[0m[35;1m)->[0m[39;1mdelete[0m[35;1m([0m[37m'/vet/' [0m[35;1m. [0m[39;1m$vet[0m[35;1m->[0m[39;1mid[0m[35;1m);[0m
+    [90m 53[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 54[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1massertDatabaseHas[0m[35;1m([0m[37m'veterinaires'[0m[35;1m, [[0m[37m'id' [0m[35;1m=> [0m[39;1m$vet[0m[35;1m->[0m[39;1mid[0m[35;1m]);[0m
+    [90m 55[0m[90m▕ [0m[35;1m    }[0m
+    [90m 56[0m[90m▕ [0m
+    [90m 57[0m[90m▕ [0m[35;1m    [0m[90;3m// CT-21 / AN-05 : un simple utilisateur ne doit pas creer un veterinaire[0m
+    [90m 58[0m[90m▕ [0m[90;3m    [0m[35;1mpublic function [0m[39;1mtest_simple_user_cannot_create_vet[0m[35;1m(): [0m[39;1mvoid[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\RoleAccessTest[22m [90m>[39m simple user cannot create vet                                 
+[39;1m  Failed asserting that table [veterinaires] matches expected entries count of 0. Entries found: 1.
+.[39;22m
+
+  at [32mtests\Feature\RoleAccessTest.php[39m:[32m69[39m
+    [90m 65[0m[90m▕ [0m[35;1m            [0m[37m'telephone' [0m[35;1m=> [0m[37m'00000000'[0m[35;1m,[0m
+    [90m 66[0m[90m▕ [0m[35;1m            [0m[37m'adresse' [0m[35;1m=> [0m[37m'Nulle part'[0m[35;1m,[0m
+    [90m 67[0m[90m▕ [0m[35;1m        ]);[0m
+    [90m 68[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 69[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1massertDatabaseCount[0m[35;1m([0m[37m'veterinaires'[0m[35;1m, [0m[39;1m0[0m[35;1m);[0m
+    [90m 70[0m[90m▕ [0m[35;1m    }[0m
+    [90m 71[0m[90m▕ [0m
+    [90m 72[0m[90m▕ [0m[35;1m    [0m[90;3m// CT-22 / AN-05 : un simple utilisateur ne doit pas modifier un veterinaire[0m
+    [90m 73[0m[90m▕ [0m[90;3m    [0m[35;1mpublic function [0m[39;1mtest_simple_user_cannot_update_vet[0m[35;1m(): [0m[39;1mvoid[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\RoleAccessTest[22m [90m>[39m simple user cannot update vet                                 
+[39;1m  Failed asserting that a row in the table [veterinaires] matches the attributes {
+    "id": 3,
+    "nom": "Dr Test"
+}.
+
+Found similar results: [
+    {
+        "id": 3,
+        "nom": "Nom pirate"
+    }
+].[39;22m
+
+  at [32mtests\Feature\RoleAccessTest.php[39m:[32m85[39m
+    [90m 81[0m[90m▕ [0m[35;1m            [0m[37m'telephone' [0m[35;1m=> [0m[37m'1'[0m[35;1m,[0m
+    [90m 82[0m[90m▕ [0m[35;1m            [0m[37m'adresse' [0m[35;1m=> [0m[37m'X'[0m[35;1m,[0m
+    [90m 83[0m[90m▕ [0m[35;1m        ]);[0m
+    [90m 84[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 85[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1massertDatabaseHas[0m[35;1m([0m[37m'veterinaires'[0m[35;1m, [[0m[37m'id' [0m[35;1m=> [0m[39;1m$vet[0m[35;1m->[0m[39;1mid[0m[35;1m, [0m[37m'nom' [0m[35;1m=> [0m[37m'Dr Test'[0m[35;1m]);[0m
+    [90m 86[0m[90m▕ [0m[35;1m    }[0m
+    [90m 87[0m[90m▕ [0m
+    [90m 88[0m[90m▕ [0m[35;1m    [0m[90;3m// CT-23 / AN-07 : la fiche d'un veterinaire doit s'afficher[0m
+    [90m 89[0m[90m▕ [0m[90;3m    [0m[35;1mpublic function [0m[39;1mtest_vet_show_page_is_displayed[0m[35;1m(): [0m[39;1mvoid[0m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\RoleAccessTest[22m [90m>[39m vet show page is displayed                                    
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.[39;22m
+
+  at [32mtests\Feature\RoleAccessTest.php[39m:[32m94[39m
+    [90m 90[0m[90m▕ [0m[39;1m    [0m[35;1m{[0m
+    [90m 91[0m[90m▕ [0m[35;1m        [0m[39;1m$user [0m[35;1m= [0m[39;1mUser[0m[35;1m::[0m[39;1mfactory[0m[35;1m()->[0m[39;1mcreate[0m[35;1m();[0m
+    [90m 92[0m[90m▕ [0m[35;1m        [0m[39;1m$vet [0m[35;1m= [0m[39;1m$this[0m[35;1m->[0m[39;1mvet[0m[35;1m();[0m
+    [90m 93[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m 94[0m[90m▕ [0m[35;1m        [0m[39;1m$this[0m[35;1m->[0m[39;1mactingAs[0m[35;1m([0m[39;1m$user[0m[35;1m)->[0m[39;1mget[0m[35;1m([0m[37m'/vet/' [0m[35;1m. [0m[39;1m$vet[0m[35;1m->[0m[39;1mid[0m[35;1m)->[0m[39;1massertOk[0m[35;1m();[0m
+    [90m 95[0m[90m▕ [0m[35;1m    }[0m
+    [90m 96[0m[90m▕ [0m[35;1m}[0m
+
+
+  [90mTests:[39m    [31;1m4 failed[39;22m[90m,[39m[39m [39m[32;1m3 passed[39;22m[90m (9 assertions)[39m
+  [90mDuration:[39m [39m1.20s[39m
+
