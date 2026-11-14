@@ -1,0 +1,32 @@
+PHPUnit 10.5.63 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.1.10
+Configuration: C:\laragon\www\animal-adoption\phpunit.xml
+
+..............                                                    14 / 14 (100%)
+
+Time: 00:01.355, Memory: 32.00 MB
+
+Admin Middleware (Tests\Unit\AdminMiddleware)
+ ✔ Admin is allowed through
+ ✔ Non admin roles are redirected with data set "role user"
+ ✔ Non admin roles are redirected with data set "role superadmin"
+ ✔ Non admin roles are redirected with data set "casse differente"
+ ✔ Non admin roles are redirected with data set "role vide"
+ ✔ Guest is redirected
+
+Animal Model (Tests\Unit\AnimalModel)
+ ✔ Animal fields are mass assignable
+ ✔ Factory generates valid ages and status
+
+Example (Tests\Unit\Example)
+ ✔ That true is true
+
+User Model (Tests\Unit\UserModel)
+ ✔ Password is hashed and verifiable
+ ✔ Already hashed password is not hashed again
+ ✔ Password is hidden in serialization
+ ✔ User has many animals and lostfound
+ ✔ Role is mass assignable
+
+OK (14 tests, 277 assertions)

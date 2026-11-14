@@ -5,7 +5,7 @@ Configuration: C:\laragon\www\animal-adoption\phpunit.xml
 
 ..FF.F......                                                      12 / 12 (100%)
 
-Time: 00:02.533, Memory: 48.00 MB
+Time: 00:02.805, Memory: 48.00 MB
 
 There were 3 failures:
 
