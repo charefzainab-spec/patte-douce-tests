@@ -47,12 +47,13 @@ class AdminUserTest extends TestCase
         $this->assertTrue(Hash::check('motdepasse123', $created->password));
     }
 
-    // CT-42 / AN-12 : formulaire vide
+        // CT-42 / AN-12 : formulaire vide
     public function test_admin_cannot_create_user_with_empty_form(): void
     {
+        $admin = $this->admin();
         $before = User::count();
 
-        $response = $this->actingAs($this->admin())->post('/users', []);
+        $response = $this->actingAs($admin)->post('/users', []);
 
         $this->assertDatabaseCount('users', $before);
         $response->assertSessionHasErrors(['name', 'email', 'password']);

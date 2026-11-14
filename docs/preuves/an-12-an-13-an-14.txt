@@ -3,18 +3,19 @@ PHPUnit 10.5.63 by Sebastian Bergmann and contributors.
 Runtime:       PHP 8.1.10
 Configuration: C:\laragon\www\animal-adoption\phpunit.xml
 
-..[41;37mF[0m[41;37mF[0m.[41;37mF[0m......                                                      12 / 12 (100%)
+..FF.F......                                                      12 / 12 (100%)
 
-Time: 00:02.795, Memory: 48.00 MB
+Time: 00:02.533, Memory: 48.00 MB
 
 There were 3 failures:
 
 1) Tests\Feature\AdminUserTest::test_admin_cannot_create_user_with_empty_form
-Failed asserting that table [users] matches expected entries count of 0. Entries found: 1.
-.
+Session is missing expected key [errors].
+Failed asserting that false is true.
 
-C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:66
-C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:57
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:59
 
 2) Tests\Feature\AdminUserTest::test_admin_cannot_create_user_with_invalid_role
 Failed asserting that a row in the table [users] does not match the attributes {
@@ -28,7 +29,7 @@ Found similar results: [
 ].
 
 C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:50
-C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:68
+C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:69
 
 3) Tests\Feature\AdminUserTest::test_admin_cannot_update_user_with_duplicate_email
 Session is missing expected key [errors].
@@ -36,7 +37,7 @@ Failed asserting that false is true.
 
 C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
 C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
-C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:99
+C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:100
 
-[37;41mFAILURES![0m
-[37;41mTests: 12[0m[37;41m, Assertions: 22[0m[37;41m, Failures: 3[0m[37;41m.[0m
+FAILURES!
+Tests: 12, Assertions: 23, Failures: 3.
