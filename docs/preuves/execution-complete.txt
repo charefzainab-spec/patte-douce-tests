@@ -1,0 +1,332 @@
+PHPUnit 10.5.63 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.1.10
+Configuration: C:\laragon\www\animal-adoption\phpunit.xml
+
+................FF.F........F.FFFF............................... 65 / 97 ( 67%)
+....FF.FF................FFFF.FF                                  97 / 97 (100%)
+
+Time: 00:21.236, Memory: 60.00 MB
+
+Admin Middleware (Tests\Unit\AdminMiddleware)
+ ✔ Admin is allowed through
+ ✔ Non admin roles are redirected with data set "role user"
+ ✔ Non admin roles are redirected with data set "role superadmin"
+ ✔ Non admin roles are redirected with data set "casse differente"
+ ✔ Non admin roles are redirected with data set "role vide"
+ ✔ Guest is redirected
+
+Admin User (Tests\Feature\AdminUser)
+ ✔ Simple user cannot list users
+ ✔ Admin can create user with working password
+ ✘ Admin cannot create user with empty form
+   │
+   │ Session is missing expected key [errors].
+   │ Failed asserting that false is true.
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+   │ C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:59
+   │
+ ✘ Admin cannot create user with invalid role
+   │
+   │ Failed asserting that a row in the table [users] does not match the attributes {
+   │     "role": "superadmin"
+   │ }.
+   │
+   │ Found similar results: [
+   │     {
+   │         "role": "superadmin"
+   │     }
+   │ ].
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:50
+   │ C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:69
+   │
+ ✔ Admin cannot create user with duplicate email
+ ✘ Admin cannot update user with duplicate email
+   │
+   │ Session is missing expected key [errors].
+   │ Failed asserting that false is true.
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+   │ C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:100
+   │
+ ✔ Admin can update user
+ ✔ Admin can delete user
+ ✔ Simple user cannot create user
+ ✔ Simple user cannot delete user
+ ✔ Registration cannot set admin role
+ ✔ Deleting user deletes their animals
+
+Animal Api (Tests\Feature\AnimalApi)
+ ✔ Api show returns 404 for unknown animal
+ ✔ Api store rejects missing fields
+ ✘ Api store requires authentication
+   │
+   │ Expected response status code [401] but received 201.
+   │ Failed asserting that 201 is identical to 401.
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:148
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\Concerns\AssertsStatusCodes.php:121
+   │ C:\laragon\www\animal-adoption\tests\Feature\AnimalApiTest.php:38
+   │
+
+Animal Authorization (Tests\Feature\AnimalAuthorization)
+ ✔ Guest is redirected to login
+ ✘ User cannot update another users animal
+   │
+   │ Failed asserting that a row in the table [animals] matches the attributes {
+   │     "id": 3,
+   │     "titre": "Titre original"
+   │ }.
+   │
+   │ Found similar results: [
+   │     {
+   │         "id": 3,
+   │         "titre": "Titre pirate"
+   │     }
+   │ ].
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:30
+   │ C:\laragon\www\animal-adoption\tests\Feature\AnimalAuthorizationTest.php:40
+   │
+ ✘ User cannot delete another users animal
+   │
+   │ Failed asserting that a row in the table [animals] matches the attributes {
+   │     "id": 4
+   │ }.
+   │
+   │ The table is empty.
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:30
+   │ C:\laragon\www\animal-adoption\tests\Feature\AnimalAuthorizationTest.php:54
+   │
+
+Animal Bugs (Tests\Feature\AnimalBugs)
+ ✘ Update rejects empty title
+   │
+   │ Session is missing expected key [errors].
+   │ Failed asserting that false is true.
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+   │ C:\laragon\www\animal-adoption\tests\Feature\AnimalBugsTest.php:28
+   │
+ ✘ Age one appears in only one filter
+   │
+   │ Age 1 apparait dans bebe ET jeune
+   │ Failed asserting that true is false.
+   │
+   │ C:\laragon\www\animal-adoption\tests\Feature\AnimalBugsTest.php:47
+   │
+
+Animal Integration (Tests\Feature\AnimalIntegration)
+ ✔ User can create animal
+ ✔ User can view animals
+ ✔ User can update animal
+ ✔ User can delete animal
+ ✔ Animal cannot be created without title
+ ✔ Animal cannot reference nonexistent user
+
+Animal Model (Tests\Unit\AnimalModel)
+ ✔ Animal fields are mass assignable
+ ✔ Factory generates valid ages and status
+
+Animal Validation (Tests\Feature\AnimalValidation)
+ ✔ Store validation boundaries with data set "CT-02 titre vide"
+ ✔ Store validation boundaries with data set "CT-03 titre 255 car."
+ ✔ Store validation boundaries with data set "CT-04 titre 256 car."
+ ✔ Store validation boundaries with data set "CT-05 age -1"
+ ✔ Store validation boundaries with data set "CT-06 age 0"
+ ✔ Store validation boundaries with data set "CT-07a age decimal"
+ ✔ Store validation boundaries with data set "CT-07b age texte"
+ ✔ Store validation boundaries with data set "CT-08a tel 20 car."
+ ✔ Store validation boundaries with data set "CT-08b tel 21 car."
+ ✔ Store validation boundaries with data set "CT-09 description vide"
+
+Authentication (Tests\Feature\Auth\Authentication)
+ ✔ Login screen can be rendered
+ ✔ Users can authenticate using the login screen
+ ✔ Users can not authenticate with invalid password
+ ✔ Users can logout
+
+Email Verification (Tests\Feature\Auth\EmailVerification)
+ ✔ Email verification screen can be rendered
+ ✔ Email can be verified
+ ✔ Email is not verified with invalid hash
+
+Example (Tests\Feature\Example)
+ ✔ The application returns a successful response
+
+Example (Tests\Unit\Example)
+ ✔ That true is true
+
+Lost Found (Tests\Feature\LostFound)
+ ✘ Store rejects empty form
+   │
+   │ Session is missing expected key [errors].
+   │ Failed asserting that false is true.
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+   │ C:\laragon\www\animal-adoption\tests\Feature\LostFoundTest.php:32
+   │
+ ✘ Search does not crash
+   │
+   │ Expected response status code [200] but received 500.
+   │ Failed asserting that 500 is identical to 200.
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:148
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\Concerns\AssertsStatusCodes.php:16
+   │ C:\laragon\www\animal-adoption\tests\Feature\LostFoundTest.php:41
+   │
+ ✔ Index is displayed
+ ✘ User cannot update another users lostfound
+   │
+   │ Failed asserting that a row in the table [lost_founds] matches the attributes {
+   │     "id": 3,
+   │     "description": "Chat noir perdu"
+   │ }.
+   │
+   │ Found similar results: [
+   │     {
+   │         "id": 3,
+   │         "description": "Modifie par un autre"
+   │     }
+   │ ].
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:30
+   │ C:\laragon\www\animal-adoption\tests\Feature\LostFoundTest.php:69
+   │
+ ✘ User cannot delete another users lostfound
+   │
+   │ Failed asserting that a row in the table [lost_founds] matches the attributes {
+   │     "id": 4
+   │ }.
+   │
+   │ The table is empty.
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:30
+   │ C:\laragon\www\animal-adoption\tests\Feature\LostFoundTest.php:83
+   │
+
+Pages Display (Tests\Feature\PagesDisplay)
+ ✔ User pages are displayed
+ ✔ Admin pages are displayed
+ ✔ Animal search by title
+ ✔ Senior filter excludes young animals
+ ✔ Lostfound type filter
+
+Password Confirmation (Tests\Feature\Auth\PasswordConfirmation)
+ ✔ Confirm password screen can be rendered
+ ✔ Password can be confirmed
+ ✔ Password is not confirmed with invalid password
+
+Password Reset (Tests\Feature\Auth\PasswordReset)
+ ✔ Reset password link screen can be rendered
+ ✔ Reset password link can be requested
+ ✔ Reset password screen can be rendered
+ ✔ Password can be reset with valid token
+
+Password Update (Tests\Feature\Auth\PasswordUpdate)
+ ✔ Password can be updated
+ ✔ Correct password must be provided to update password
+
+Photo Upload (Tests\Feature\PhotoUpload)
+ ✔ Photo of 2048 kb is accepted
+ ✔ Photo of 2049 kb is rejected
+ ✔ Pdf is rejected as photo
+
+Profile (Tests\Feature\Profile)
+ ✔ Profile page is displayed
+ ✔ Profile information can be updated
+ ✔ Email verification status is unchanged when the email address is unchanged
+ ✔ User can delete their account
+ ✔ Correct password must be provided to delete account
+
+Registration (Tests\Feature\Auth\Registration)
+ ✔ Registration screen can be rendered
+ ✔ New users can register
+
+Role Access (Tests\Feature\RoleAccess)
+ ✔ Guest cannot access admin dashboard
+ ✔ Simple user cannot access admin dashboard
+ ✔ Admin can access admin dashboard
+ ✘ Simple user cannot delete vet
+   │
+   │ Failed asserting that a row in the table [veterinaires] matches the attributes {
+   │     "id": 3
+   │ }.
+   │
+   │ The table is empty.
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:30
+   │ C:\laragon\www\animal-adoption\tests\Feature\RoleAccessTest.php:54
+   │
+ ✘ Simple user cannot create vet
+   │
+   │ Failed asserting that table [veterinaires] matches expected entries count of 0. Entries found: 1.
+   │ .
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:66
+   │ C:\laragon\www\animal-adoption\tests\Feature\RoleAccessTest.php:69
+   │
+ ✘ Simple user cannot update vet
+   │
+   │ Failed asserting that a row in the table [veterinaires] matches the attributes {
+   │     "id": 5,
+   │     "nom": "Dr Test"
+   │ }.
+   │
+   │ Found similar results: [
+   │     {
+   │         "id": 5,
+   │         "nom": "Nom pirate"
+   │     }
+   │ ].
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:30
+   │ C:\laragon\www\animal-adoption\tests\Feature\RoleAccessTest.php:85
+   │
+ ✘ Vet show page is displayed
+   │
+   │ Expected response status code [200] but received 500.
+   │ Failed asserting that 500 is identical to 200.
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:148
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\Concerns\AssertsStatusCodes.php:16
+   │ C:\laragon\www\animal-adoption\tests\Feature\RoleAccessTest.php:94
+   │
+
+User Model (Tests\Unit\UserModel)
+ ✔ Password is hashed and verifiable
+ ✔ Already hashed password is not hashed again
+ ✔ Password is hidden in serialization
+ ✔ User has many animals and lostfound
+ ✔ Role is mass assignable
+
+Vet Validation (Tests\Feature\VetValidation)
+ ✔ Admin cannot create vet without name
+ ✘ Admin cannot create vet with invalid email
+   │
+   │ Session is missing expected key [errors].
+   │ Failed asserting that false is true.
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+   │ C:\laragon\www\animal-adoption\tests\Feature\VetValidationTest.php:37
+   │
+ ✘ Admin cannot update vet with empty name
+   │
+   │ Session is missing expected key [errors].
+   │ Failed asserting that false is true.
+   │
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+   │ C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+   │ C:\laragon\www\animal-adoption\tests\Feature\VetValidationTest.php:55
+   │
+
+FAILURES!
+Tests: 97, Assertions: 471, Failures: 18.
