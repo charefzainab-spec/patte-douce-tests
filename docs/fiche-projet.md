@@ -24,8 +24,8 @@ autorisée, avec adaptation des règles métier : voir adaptation-referentiel.md
 | Base MySQL | Persistance |
 
 ## 4. Environnement technique
-- Backend : Laravel X.X, PHP X.X, architecture MVC
-- Base de données : MySQL (base de test séparée : `animal_adoption_test`)
+- Backend : Laravel 10.50.2, PHP 8.1.10, - - -  architecture 
+- Base de données : MariaDB 10.11.16 (via Laragon, compatible MySQL) ; base de test séparée : `animal_adoption_test`
 - Interface : Blade, HTML, CSS, JavaScript
 - API : routes `routes/api.php`, Laravel Sanctum
 - Serveur local : Laragon, système Windows
