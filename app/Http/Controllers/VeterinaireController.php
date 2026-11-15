@@ -10,11 +10,11 @@ class VeterinaireController extends Controller
     /**
      * Display a listing of the resource.
      */
-     public function index(Request $request)
+    public function index(Request $request)
     {
         $query = Veterinaire::query();
 
-        // 🔍 Search sur nom, email, téléphone, adresse
+        // Search sur nom, email, telephone, adresse
         if ($request->search) {
             $query->where(function ($q) use ($request) {
                 $q->where('nom', 'like', '%' . $request->search . '%')
@@ -29,7 +29,6 @@ class VeterinaireController extends Controller
         return view('veterinaires.index', compact('vets'));
     }
 
-
     /**
      * Show the form for creating a new resource.
      */
@@ -43,14 +42,14 @@ class VeterinaireController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nom' => 'required',
-            'email' => 'required',
-            'telephone' => 'required',
-            'adresse' => 'required',
+        $validated = $request->validate([
+            'nom' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'telephone' => 'required|string|max:20',
+            'adresse' => 'required|string|max:255',
         ]);
 
-        Veterinaire::create($request->all());
+        Veterinaire::create($validated);
 
         return redirect()->route('admin.vets')
             ->with('success', 'Vétérinaire ajouté avec succès');
@@ -62,7 +61,8 @@ class VeterinaireController extends Controller
     public function show(string $id)
     {
         $veterinaire = Veterinaire::findOrFail($id);
-        return view('veterinaires.show', ['veterinaire' => $veterinaire, 'vet' => $veterinaire]);    }
+        return view('veterinaires.show', ['veterinaire' => $veterinaire, 'vet' => $veterinaire]);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -80,12 +80,14 @@ class VeterinaireController extends Controller
     {
         $vet = Veterinaire::findOrFail($id);
 
-        $vet->update([
-            'nom' => $request->nom,
-            'email' => $request->email,
-            'telephone' => $request->telephone,
-            'adresse' => $request->adresse,
+        $validated = $request->validate([
+            'nom' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'telephone' => 'required|string|max:20',
+            'adresse' => 'required|string|max:255',
         ]);
+
+        $vet->update($validated);
 
         return redirect()->route('admin.vets');
     }
@@ -99,26 +101,27 @@ class VeterinaireController extends Controller
 
         return redirect()->route('admin.vets');
     }
+
     public function adminIndex(Request $request)
-{
-    $query = Veterinaire::query();
-    
-    // 🔍 Recherche par nom, email, téléphone, adresse
-    if ($request->filled('search')) {
-        $search = trim($request->search);
-        $query->where(function($q) use ($search) {
-            $q->where('nom', 'like', '%' . $search . '%')
-              ->orWhere('email', 'like', '%' . $search . '%')
-              ->orWhere('telephone', 'like', '%' . $search . '%')
-              ->orWhere('adresse', 'like', '%' . $search . '%');
-        });
+    {
+        $query = Veterinaire::query();
+
+        // Recherche par nom, email, telephone, adresse
+        if ($request->filled('search')) {
+            $search = trim($request->search);
+            $query->where(function ($q) use ($search) {
+                $q->where('nom', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%')
+                  ->orWhere('telephone', 'like', '%' . $search . '%')
+                  ->orWhere('adresse', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Tri alphabetique
+        $query->orderBy('nom', 'asc');
+
+        $vets = $query->get();
+
+        return view('admin.veterinaires.index', compact('vets'));
     }
-    
-    // 📊 Trie par ordre alphabétique
-    $query->orderBy('nom', 'asc');
-    
-    $vets = $query->get();
-    
-    return view('admin.veterinaires.index', compact('vets'));
-}
 }
