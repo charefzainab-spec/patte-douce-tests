@@ -11,6 +11,22 @@
         <testsuite name="Feature">
             <directory>tests/Feature</directory>
         </testsuite>
+        <testsuite name="Regression">
+            <file>tests/Feature/AnimalAuthorizationTest.php</file>
+            <file>tests/Feature/AnimalApiTest.php</file>
+            <file>tests/Feature/RoleAccessTest.php</file>
+            <file>tests/Feature/LostFoundTest.php</file>
+            <file>tests/Feature/AdminUserTest.php</file>
+            <file>tests/Feature/AnimalBugsTest.php</file>
+            <file>tests/Feature/VetValidationTest.php</file>
+            <file>tests/Feature/AnimalValidationTest.php</file>
+            <file>tests/Feature/PhotoUploadTest.php</file>
+            <file>tests/Feature/AnimalIntegrationTest.php</file>
+            <file>tests/Feature/PagesDisplayTest.php</file>
+            <file>tests/Unit/AdminMiddlewareTest.php</file>
+            <file>tests/Unit/UserModelTest.php</file>
+            <file>tests/Unit/AnimalModelTest.php</file>
+        </testsuite>
     </testsuites>
     <source>
         <include>

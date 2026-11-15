@@ -1,0 +1,191 @@
+PHPUnit 10.5.63 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.1.10
+Configuration: C:\laragon\www\animal-adoption\phpunit.xml
+
+.FF..F...FFFFFF.FF..FF.F......FF.FF.............................. 65 / 72 ( 90%)
+.......                                                           72 / 72 (100%)
+
+Time: 00:14.389, Memory: 54.00 MB
+
+There were 18 failures:
+
+1) Tests\Feature\AnimalAuthorizationTest::test_user_cannot_update_another_users_animal
+Failed asserting that a row in the table [animals] matches the attributes {
+    "id": 1,
+    "titre": "Titre original"
+}.
+
+Found similar results: [
+    {
+        "id": 1,
+        "titre": "Titre pirate"
+    }
+].
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:30
+C:\laragon\www\animal-adoption\tests\Feature\AnimalAuthorizationTest.php:40
+
+2) Tests\Feature\AnimalAuthorizationTest::test_user_cannot_delete_another_users_animal
+Failed asserting that a row in the table [animals] matches the attributes {
+    "id": 2
+}.
+
+The table is empty.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:30
+C:\laragon\www\animal-adoption\tests\Feature\AnimalAuthorizationTest.php:54
+
+3) Tests\Feature\AnimalApiTest::test_api_store_requires_authentication
+Expected response status code [401] but received 201.
+Failed asserting that 201 is identical to 401.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:148
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\Concerns\AssertsStatusCodes.php:121
+C:\laragon\www\animal-adoption\tests\Feature\AnimalApiTest.php:38
+
+4) Tests\Feature\RoleAccessTest::test_simple_user_cannot_delete_vet
+Failed asserting that a row in the table [veterinaires] matches the attributes {
+    "id": 1
+}.
+
+The table is empty.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:30
+C:\laragon\www\animal-adoption\tests\Feature\RoleAccessTest.php:54
+
+5) Tests\Feature\RoleAccessTest::test_simple_user_cannot_create_vet
+Failed asserting that table [veterinaires] matches expected entries count of 0. Entries found: 1.
+.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:66
+C:\laragon\www\animal-adoption\tests\Feature\RoleAccessTest.php:69
+
+6) Tests\Feature\RoleAccessTest::test_simple_user_cannot_update_vet
+Failed asserting that a row in the table [veterinaires] matches the attributes {
+    "id": 3,
+    "nom": "Dr Test"
+}.
+
+Found similar results: [
+    {
+        "id": 3,
+        "nom": "Nom pirate"
+    }
+].
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:30
+C:\laragon\www\animal-adoption\tests\Feature\RoleAccessTest.php:85
+
+7) Tests\Feature\RoleAccessTest::test_vet_show_page_is_displayed
+Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:148
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\Concerns\AssertsStatusCodes.php:16
+C:\laragon\www\animal-adoption\tests\Feature\RoleAccessTest.php:94
+
+8) Tests\Feature\LostFoundTest::test_store_rejects_empty_form
+Session is missing expected key [errors].
+Failed asserting that false is true.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+C:\laragon\www\animal-adoption\tests\Feature\LostFoundTest.php:32
+
+9) Tests\Feature\LostFoundTest::test_search_does_not_crash
+Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:148
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\Concerns\AssertsStatusCodes.php:16
+C:\laragon\www\animal-adoption\tests\Feature\LostFoundTest.php:41
+
+10) Tests\Feature\LostFoundTest::test_user_cannot_update_another_users_lostfound
+Failed asserting that a row in the table [lost_founds] matches the attributes {
+    "id": 3,
+    "description": "Chat noir perdu"
+}.
+
+Found similar results: [
+    {
+        "id": 3,
+        "description": "Modifie par un autre"
+    }
+].
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:30
+C:\laragon\www\animal-adoption\tests\Feature\LostFoundTest.php:69
+
+11) Tests\Feature\LostFoundTest::test_user_cannot_delete_another_users_lostfound
+Failed asserting that a row in the table [lost_founds] matches the attributes {
+    "id": 4
+}.
+
+The table is empty.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:30
+C:\laragon\www\animal-adoption\tests\Feature\LostFoundTest.php:83
+
+12) Tests\Feature\AdminUserTest::test_admin_cannot_create_user_with_empty_form
+Session is missing expected key [errors].
+Failed asserting that false is true.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:59
+
+13) Tests\Feature\AdminUserTest::test_admin_cannot_create_user_with_invalid_role
+Failed asserting that a row in the table [users] does not match the attributes {
+    "role": "superadmin"
+}.
+
+Found similar results: [
+    {
+        "role": "superadmin"
+    }
+].
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:50
+C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:69
+
+14) Tests\Feature\AdminUserTest::test_admin_cannot_update_user_with_duplicate_email
+Session is missing expected key [errors].
+Failed asserting that false is true.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:100
+
+15) Tests\Feature\AnimalBugsTest::test_update_rejects_empty_title
+Session is missing expected key [errors].
+Failed asserting that false is true.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+C:\laragon\www\animal-adoption\tests\Feature\AnimalBugsTest.php:28
+
+16) Tests\Feature\AnimalBugsTest::test_age_one_appears_in_only_one_filter
+Age 1 apparait dans bebe ET jeune
+Failed asserting that true is false.
+
+C:\laragon\www\animal-adoption\tests\Feature\AnimalBugsTest.php:47
+
+17) Tests\Feature\VetValidationTest::test_admin_cannot_create_vet_with_invalid_email
+Session is missing expected key [errors].
+Failed asserting that false is true.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+C:\laragon\www\animal-adoption\tests\Feature\VetValidationTest.php:37
+
+18) Tests\Feature\VetValidationTest::test_admin_cannot_update_vet_with_empty_name
+Session is missing expected key [errors].
+Failed asserting that false is true.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+C:\laragon\www\animal-adoption\tests\Feature\VetValidationTest.php:55
+
+FAILURES!
+Tests: 72, Assertions: 410, Failures: 18.
