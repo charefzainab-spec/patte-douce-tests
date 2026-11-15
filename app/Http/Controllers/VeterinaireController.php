@@ -62,8 +62,7 @@ class VeterinaireController extends Controller
     public function show(string $id)
     {
         $veterinaire = Veterinaire::findOrFail($id);
-        return view('vet.show', compact('veterinaire'));
-    }
+        return view('veterinaires.show', ['veterinaire' => $veterinaire, 'vet' => $veterinaire]);    }
 
     /**
      * Show the form for editing the specified resource.

@@ -1,0 +1,90 @@
+PHPUnit 10.5.63 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.1.10
+Configuration: C:\laragon\www\animal-adoption\phpunit.xml
+
+...............FF.....FF.F......FF.FF............................ 65 / 74 ( 87%)
+.........                                                         74 / 74 (100%)
+
+Time: 00:12.862, Memory: 56.00 MB
+
+There were 9 failures:
+
+1) Tests\Feature\LostFoundTest::test_store_rejects_empty_form
+Session is missing expected key [errors].
+Failed asserting that false is true.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+C:\laragon\www\animal-adoption\tests\Feature\LostFoundTest.php:32
+
+2) Tests\Feature\LostFoundTest::test_search_does_not_crash
+Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:148
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\Concerns\AssertsStatusCodes.php:16
+C:\laragon\www\animal-adoption\tests\Feature\LostFoundTest.php:41
+
+3) Tests\Feature\AdminUserTest::test_admin_cannot_create_user_with_empty_form
+Session is missing expected key [errors].
+Failed asserting that false is true.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:59
+
+4) Tests\Feature\AdminUserTest::test_admin_cannot_create_user_with_invalid_role
+Failed asserting that a row in the table [users] does not match the attributes {
+    "role": "superadmin"
+}.
+
+Found similar results: [
+    {
+        "role": "superadmin"
+    }
+].
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase.php:50
+C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:69
+
+5) Tests\Feature\AdminUserTest::test_admin_cannot_update_user_with_duplicate_email
+Session is missing expected key [errors].
+Failed asserting that false is true.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+C:\laragon\www\animal-adoption\tests\Feature\AdminUserTest.php:100
+
+6) Tests\Feature\AnimalBugsTest::test_update_rejects_empty_title
+Session is missing expected key [errors].
+Failed asserting that false is true.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+C:\laragon\www\animal-adoption\tests\Feature\AnimalBugsTest.php:28
+
+7) Tests\Feature\AnimalBugsTest::test_age_one_appears_in_only_one_filter
+Age 1 apparait dans bebe ET jeune
+Failed asserting that true is false.
+
+C:\laragon\www\animal-adoption\tests\Feature\AnimalBugsTest.php:47
+
+8) Tests\Feature\VetValidationTest::test_admin_cannot_create_vet_with_invalid_email
+Session is missing expected key [errors].
+Failed asserting that false is true.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+C:\laragon\www\animal-adoption\tests\Feature\VetValidationTest.php:37
+
+9) Tests\Feature\VetValidationTest::test_admin_cannot_update_vet_with_empty_name
+Session is missing expected key [errors].
+Failed asserting that false is true.
+
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1265
+C:\laragon\www\animal-adoption\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1340
+C:\laragon\www\animal-adoption\tests\Feature\VetValidationTest.php:55
+
+FAILURES!
+Tests: 74, Assertions: 419, Failures: 9.

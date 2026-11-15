@@ -70,8 +70,8 @@ Route::middleware(['auth'])->group(function () {
     | Veterinaires
     |--------------------------------------------------------------------------
     */
-    Route::resource('vet', VeterinaireController::class);
-
+    // Consultation ouverte aux utilisateurs connectes (les ecritures sont reservees a l'admin)
+    Route::resource('vet', VeterinaireController::class)->only(['index', 'show']);
 
     /*
     |--------------------------------------------------------------------------
