@@ -22,14 +22,14 @@ class AnimalController extends Controller
             });
         }
 
-        // Filtre age
+        // Filtre age : intervalles [a, b[ exclusifs (un age n'appartient qu'a une categorie)
         if ($request->age_filter) {
             if ($request->age_filter == 'baby') {
-                $query->whereBetween('age', [0, 1]);
+                $query->where('age', '<', 1);
             } elseif ($request->age_filter == 'young') {
-                $query->whereBetween('age', [1, 5]);
+                $query->where('age', '>=', 1)->where('age', '<', 5);
             } elseif ($request->age_filter == 'adult') {
-                $query->whereBetween('age', [5, 10]);
+                $query->where('age', '>=', 5)->where('age', '<', 10);
             } elseif ($request->age_filter == 'senior') {
                 $query->where('age', '>=', 10);
             }
@@ -53,8 +53,10 @@ class AnimalController extends Controller
         $query = Animal::query();
 
         if ($request->search) {
-            $query->where('titre', 'like', '%' . $request->search . '%')
-                ->orWhere('race', 'like', '%' . $request->search . '%');
+            $query->where(function ($q) use ($request) {
+                $q->where('titre', 'like', '%' . $request->search . '%')
+                  ->orWhere('race', 'like', '%' . $request->search . '%');
+            });
         }
 
         return $query->get();
@@ -163,6 +165,15 @@ class AnimalController extends Controller
     {
         $animal = Animal::findOrFail($id);
         $this->authorizeOwner($animal);
+
+        $request->validate([
+            'titre' => 'required|string|max:255',
+            'race' => 'required|string|max:255',
+            'age' => 'required|integer|min:0',
+            'description' => 'required|string',
+            'tel' => 'nullable|string|max:20',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
 
         $photoName = $animal->photo;
 
