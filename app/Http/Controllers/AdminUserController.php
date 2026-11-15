@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class AdminUserController extends Controller
 {
@@ -21,19 +22,21 @@ class AdminUserController extends Controller
 
     public function store(Request $request)
     {
-        try {
-            User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'role' => $request->role,
-            ]);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8',
+            'role' => 'required|in:user,admin',
+        ]);
 
-            return redirect()->route('users.index');
+        User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role' => $validated['role'],
+        ]);
 
-        } catch (\Exception $e) {
-            return back()->with('error', 'Email déjà utilisé');
-        }
+        return redirect()->route('users.index');
     }
 
     public function edit($id)
@@ -43,15 +46,17 @@ class AdminUserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
-   public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
 
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => $request->role, // مهم جدا
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
+            'role' => 'required|in:user,admin',
         ]);
+
+        $user->update($validated);
 
         return redirect()->route('users.index');
     }
