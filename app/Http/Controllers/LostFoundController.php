@@ -14,11 +14,12 @@ class LostFoundController extends Controller
     {
         $query = LostFound::query();
 
-        // search
+        // search (conditions groupees; la colonne "titre" n'existe pas)
         if ($request->search) {
-            $query->where('description', 'like', '%' . $request->search . '%')
-                  ->orWhere('localisation', 'like', '%' . $request->search . '%')
-                  ->orWhere('titre', 'like', '%' . $request->search . '%');
+            $query->where(function ($q) use ($request) {
+                $q->where('description', 'like', '%' . $request->search . '%')
+                  ->orWhere('localisation', 'like', '%' . $request->search . '%');
+            });
         }
 
         // filter type
@@ -36,8 +37,10 @@ class LostFoundController extends Controller
         $query = LostFound::query();
 
         if ($request->search) {
-            $query->where('type', 'like', '%' . $request->search . '%')
+            $query->where(function ($q) use ($request) {
+                $q->where('type', 'like', '%' . $request->search . '%')
                   ->orWhere('description', 'like', '%' . $request->search . '%');
+            });
         }
 
         $losts = $query->get();
@@ -72,6 +75,14 @@ class LostFoundController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'type' => 'required|string|max:255',
+            'description' => 'required|string',
+            'localisation' => 'required|string|max:255',
+            'contact' => 'required|string|max:255',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
         $photoName = null;
 
         // upload image
@@ -84,10 +95,10 @@ class LostFoundController extends Controller
         }
 
         LostFound::create([
-            'type' => $request->type,
-            'description' => $request->description,
-            'localisation' => $request->localisation,
-            'contact' => $request->contact,
+            'type' => $validated['type'],
+            'description' => $validated['description'],
+            'localisation' => $validated['localisation'],
+            'contact' => $validated['contact'],
             'photo' => $photoName,
             'user_id' => auth()->id()
         ]);
@@ -123,12 +134,14 @@ class LostFoundController extends Controller
         $lost = LostFound::findOrFail($id);
         $this->authorizeOwner($lost);
 
-        $lost->update([
-            'type' => $request->type,
-            'description' => $request->description,
-            'localisation' => $request->localisation,
-            'contact' => $request->contact,
+        $validated = $request->validate([
+            'type' => 'required|string|max:255',
+            'description' => 'required|string',
+            'localisation' => 'required|string|max:255',
+            'contact' => 'required|string|max:255',
         ]);
+
+        $lost->update($validated);
 
         return redirect()->route('lost-found.index');
     }
