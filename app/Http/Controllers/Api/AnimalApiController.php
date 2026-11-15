@@ -33,11 +33,11 @@ class AnimalApiController extends Controller
             'description' => 'required|string',
             'age' => 'required|integer|min:0',
             'race' => 'required|string',
-            'user_id' => 'required|exists:users,id',
         ]);
 
         $animal = Animal::create($validated + [
             'statut' => 'adoption',
+            'user_id' => $request->user()->id,
         ]);
 
         return response()->json($animal, 201);

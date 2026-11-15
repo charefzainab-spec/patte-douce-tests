@@ -1,0 +1,22 @@
+PHPUnit 10.5.63 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.1.10
+Configuration: C:\laragon\www\animal-adoption\phpunit.xml
+
+..........                                                        10 / 10 (100%)
+
+Time: 00:02.306, Memory: 46.00 MB
+
+Animal Api (Tests\Feature\AnimalApi)
+ ✔ Api show returns 404 for unknown animal
+ ✔ Api show returns 404 for unknown animal
+ ✔ Api store rejects missing fields
+ ✔ Api store rejects missing fields
+ ✔ Api store requires authentication
+ ✔ Api store requires authentication
+ ✔ Api store attaches authenticated user
+ ✔ Api store attaches authenticated user
+ ✔ Api store ignores client supplied user id
+ ✔ Api store ignores client supplied user id
+
+OK (10 tests, 30 assertions)
