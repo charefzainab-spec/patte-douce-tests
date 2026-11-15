@@ -11,40 +11,53 @@ class LostFoundController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    $query = LostFound::query();
+    {
+        $query = LostFound::query();
 
-    // 🔍 search
-    if ($request->search) {
-        $query->where('description', 'like', '%' . $request->search . '%')
-              ->orWhere('localisation', 'like', '%' . $request->search . '%')
-              ->orWhere('titre', 'like', '%' . $request->search . '%');
+        // search
+        if ($request->search) {
+            $query->where('description', 'like', '%' . $request->search . '%')
+                  ->orWhere('localisation', 'like', '%' . $request->search . '%')
+                  ->orWhere('titre', 'like', '%' . $request->search . '%');
+        }
+
+        // filter type
+        if ($request->type) {
+            $query->where('type', $request->type);
+        }
+
+        $losts = $query->latest()->get();
+
+        return view('lost-found.index', compact('losts'));
     }
 
-    // 🐾 filter type
-    if ($request->type) {
-        $query->where('type', $request->type);
-    }
-
-    $losts = $query->latest()->get();
-
-    return view('lost-found.index', compact('losts'));
-}
     public function adminIndex(Request $request)
-{
-    $query = LostFound::query();
+    {
+        $query = LostFound::query();
 
-    if ($request->search) {
+        if ($request->search) {
+            $query->where('type', 'like', '%' . $request->search . '%')
+                  ->orWhere('description', 'like', '%' . $request->search . '%');
+        }
 
-        $query->where('type', 'like', '%' . $request->search . '%')
-              ->orWhere('description', 'like', '%' . $request->search . '%');
+        $losts = $query->get();
 
+        return view('admin.lostfound.index', compact('losts'));
     }
 
-    $losts = $query->get();
+    /**
+     * Seul le proprietaire (ou l'administrateur si autorise) peut agir sur l'annonce.
+     */
+    private function authorizeOwner(LostFound $lost, bool $adminAllowed = false): void
+    {
+        $user = auth()->user();
+        $isOwner = (int) $lost->user_id === (int) $user->id;
+        $isAdmin = $user->role === 'admin';
 
-    return view('admin.lostfound.index', compact('losts'));
-}
+        if (!$isOwner && !($adminAllowed && $isAdmin)) {
+            abort(403);
+        }
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -52,7 +65,6 @@ class LostFoundController extends Controller
     public function create()
     {
         return view('lost-found.create');
-
     }
 
     /**
@@ -63,11 +75,10 @@ class LostFoundController extends Controller
         $photoName = null;
 
         // upload image
-        if($request->hasFile('photo')){
-
+        if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
 
-            $photoName = time().'.'.$photo->getClientOriginalExtension();
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
 
             $photo->move(public_path('uploads'), $photoName);
         }
@@ -89,7 +100,7 @@ class LostFoundController extends Controller
      */
     public function show(string $id)
     {
-         $lost = LostFound::findOrFail($id);
+        $lost = LostFound::findOrFail($id);
         return view('lost-found.show', compact('lost'));
     }
 
@@ -99,6 +110,8 @@ class LostFoundController extends Controller
     public function edit(string $id)
     {
         $lost = LostFound::findOrFail($id);
+        $this->authorizeOwner($lost);
+
         return view('lost-found.edit', compact('lost'));
     }
 
@@ -108,12 +121,13 @@ class LostFoundController extends Controller
     public function update(Request $request, string $id)
     {
         $lost = LostFound::findOrFail($id);
+        $this->authorizeOwner($lost);
 
         $lost->update([
-        'type' => $request->type,
-        'description' => $request->description,
-        'localisation' => $request->localisation,
-        'contact' => $request->contact,
+            'type' => $request->type,
+            'description' => $request->description,
+            'localisation' => $request->localisation,
+            'contact' => $request->contact,
         ]);
 
         return redirect()->route('lost-found.index');
@@ -124,10 +138,13 @@ class LostFoundController extends Controller
      */
     public function destroy(string $id)
     {
-        LostFound::findOrFail($id)->delete();
+        $lost = LostFound::findOrFail($id);
+        $this->authorizeOwner($lost, true);
+        $lost->delete();
 
-    return back();
+        return back();
     }
+
     public function myLostFound()
     {
         $losts = LostFound::where('user_id', auth()->id())->get();
