@@ -8,6 +8,7 @@
 .env
 .env.backup
 .env.production
+.env.testing
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -17,9 +18,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-.env.testing 
-.env 
-test-results 
-perf\k6.exe 
-perf\k6-v1.8.3-windows-amd64 
-docs\preuves\laravel-avant-corrections.log 
+test-results/
+docs/couverture/
+docs/rapport-e2e/
+perf/k6.exe
+perf/k6-v1.8.3-windows-amd64/
+docs/preuves/laravel-avant-corrections.log
