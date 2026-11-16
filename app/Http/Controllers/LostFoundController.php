@@ -1,167 +1,45 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Tests\Feature;
 
-use Illuminate\Http\Request;
-use App\Models\LostFound;
+use App\Models\User;
+use App\Models\Veterinaire;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
-class LostFoundController extends Controller
+class VetSearchTest extends TestCase
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
+    use RefreshDatabase;
+
+    private function twoVets(): void
     {
-        $query = LostFound::query();
-
-        // search (conditions groupees; la colonne "titre" n'existe pas)
-        if ($request->search) {
-            $query->where(function ($q) use ($request) {
-                $q->where('description', 'like', '%' . $request->search . '%')
-                  ->orWhere('localisation', 'like', '%' . $request->search . '%');
-            });
-        }
-
-        // filter type
-        if ($request->type) {
-            $query->where('type', $request->type);
-        }
-
-        $losts = $query->latest()->get();
-
-        return view('lost-found.index', compact('losts'));
+        Veterinaire::forceCreate(['nom' => 'Dr Dupont', 'email' => 'dupont@test.com', 'telephone' => '11111111', 'adresse' => 'Tunis']);
+        Veterinaire::forceCreate(['nom' => 'Dr Martin', 'email' => 'martin@test.com', 'telephone' => '22222222', 'adresse' => 'Sfax']);
     }
 
-    public function adminIndex(Request $request)
+    // CT-79 : recherche cote utilisateur
+    public function test_user_can_search_vets(): void
     {
-        $query = LostFound::query();
+        $user = User::factory()->create();
+        $this->twoVets();
 
-        if ($request->search) {
-            $query->where(function ($q) use ($request) {
-                $q->where('type', 'like', '%' . $request->search . '%')
-                  ->orWhere('description', 'like', '%' . $request->search . '%');
-            });
-        }
-
-        $losts = $query->get();
-
-        return view('admin.lostfound.index', compact('losts'));
+        $this->actingAs($user)->get('/veterinaires?search=Dupont')
+            ->assertOk()
+            ->assertViewHas('vets', fn ($vets) => $vets->count() === 1 && $vets->first()->nom === 'Dr Dupont');
     }
 
-    /**
-     * Seul le proprietaire (ou l'administrateur si autorise) peut agir sur l'annonce.
-     */
-    private function authorizeOwner(LostFound $lost, bool $adminAllowed = false): void
+    // CT-80 : liste d'administration triee et filtree
+    public function test_admin_vet_list_is_sorted_and_searchable(): void
     {
-        $user = auth()->user();
-        $isOwner = (int) $lost->user_id === (int) $user->id;
-        $isAdmin = $user->role === 'admin';
+        $admin = User::factory()->create(['role' => 'admin']);
+        $this->twoVets();
 
-        if (!$isOwner && !($adminAllowed && $isAdmin)) {
-            abort(403);
-        }
-    }
+        $this->actingAs($admin)->get('/admin/veterinaires')
+            ->assertOk()
+            ->assertViewHas('vets', fn ($vets) => $vets->pluck('nom')->all() === ['Dr Dupont', 'Dr Martin']);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('lost-found.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'type' => 'required|string|max:255',
-            'description' => 'required|string',
-            'localisation' => 'required|string|max:255',
-            'contact' => 'required|string|max:255',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
-
-        $photoName = null;
-
-        // upload image
-        if ($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-
-            $photoName = time() . '.' . $photo->getClientOriginalExtension();
-
-            $photo->move(public_path('uploads'), $photoName);
-        }
-
-        LostFound::create([
-            'type' => $validated['type'],
-            'description' => $validated['description'],
-            'localisation' => $validated['localisation'],
-            'contact' => $validated['contact'],
-            'photo' => $photoName,
-            'user_id' => auth()->id()
-        ]);
-
-        return redirect()->route('lost-found.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $lost = LostFound::findOrFail($id);
-        return view('lost-found.show', compact('lost'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $lost = LostFound::findOrFail($id);
-        $this->authorizeOwner($lost);
-
-        return view('lost-found.edit', compact('lost'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $lost = LostFound::findOrFail($id);
-        $this->authorizeOwner($lost);
-
-        $validated = $request->validate([
-            'type' => 'required|string|max:255',
-            'description' => 'required|string',
-            'localisation' => 'required|string|max:255',
-            'contact' => 'required|string|max:255',
-        ]);
-
-        $lost->update($validated);
-
-        return redirect()->route('lost-found.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $lost = LostFound::findOrFail($id);
-        $this->authorizeOwner($lost, true);
-        $lost->delete();
-
-        return back();
-    }
-
-    public function myLostFound()
-    {
-        $losts = LostFound::where('user_id', auth()->id())->get();
-
-        return view('lost-found.mylostfound', compact('losts'));
+        $this->actingAs($admin)->get('/admin/veterinaires?search=Sfax')
+            ->assertOk()
+            ->assertViewHas('vets', fn ($vets) => $vets->count() === 1 && $vets->first()->nom === 'Dr Martin');
     }
 }

@@ -1,0 +1,162 @@
+PHPUnit 10.5.63 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.1.10
+Configuration: C:\laragon\www\animal-adoption\phpunit.xml
+
+...............................................................  63 / 103 ( 61%)
+........................................                        103 / 103 (100%)
+
+Time: 00:11.007, Memory: 58.00 MB
+
+Admin Middleware (Tests\Unit\AdminMiddleware)
+ ✔ Admin is allowed through
+ ✔ Non admin roles are redirected with data set "role user"
+ ✔ Non admin roles are redirected with data set "role superadmin"
+ ✔ Non admin roles are redirected with data set "casse differente"
+ ✔ Non admin roles are redirected with data set "role vide"
+ ✔ Guest is redirected
+
+Admin User (Tests\Feature\AdminUser)
+ ✔ Simple user cannot list users
+ ✔ Admin can create user with working password
+ ✔ Admin cannot create user with empty form
+ ✔ Admin cannot create user with invalid role
+ ✔ Admin cannot create user with duplicate email
+ ✔ Admin cannot update user with duplicate email
+ ✔ Admin can update user
+ ✔ Admin can delete user
+ ✔ Simple user cannot create user
+ ✔ Simple user cannot delete user
+ ✔ Registration cannot set admin role
+ ✔ Deleting user deletes their animals
+
+Animal Api (Tests\Feature\AnimalApi)
+ ✔ Api show returns 404 for unknown animal
+ ✔ Api store rejects missing fields
+ ✔ Api store requires authentication
+ ✔ Api store attaches authenticated user
+ ✔ Api store ignores client supplied user id
+
+Animal Authorization (Tests\Feature\AnimalAuthorization)
+ ✔ Guest is redirected to login
+ ✔ User cannot update another users animal
+ ✔ User cannot delete another users animal
+
+Animal Bugs (Tests\Feature\AnimalBugs)
+ ✔ Update rejects empty title
+ ✔ Age one appears in only one filter
+
+Animal Integration (Tests\Feature\AnimalIntegration)
+ ✔ User can create animal
+ ✔ User can view animals
+ ✔ User can update animal
+ ✔ User can delete animal
+ ✔ Animal cannot be created without title
+ ✔ Animal cannot reference nonexistent user
+
+Animal Model (Tests\Unit\AnimalModel)
+ ✔ Animal fields are mass assignable
+ ✔ Factory generates valid ages and status
+
+Animal Validation (Tests\Feature\AnimalValidation)
+ ✔ Store validation boundaries with data set "CT-02 titre vide"
+ ✔ Store validation boundaries with data set "CT-03 titre 255 car."
+ ✔ Store validation boundaries with data set "CT-04 titre 256 car."
+ ✔ Store validation boundaries with data set "CT-05 age -1"
+ ✔ Store validation boundaries with data set "CT-06 age 0"
+ ✔ Store validation boundaries with data set "CT-07a age decimal"
+ ✔ Store validation boundaries with data set "CT-07b age texte"
+ ✔ Store validation boundaries with data set "CT-08a tel 20 car."
+ ✔ Store validation boundaries with data set "CT-08b tel 21 car."
+ ✔ Store validation boundaries with data set "CT-09 description vide"
+
+Authentication (Tests\Feature\Auth\Authentication)
+ ✔ Login screen can be rendered
+ ✔ Users can authenticate using the login screen
+ ✔ Users can not authenticate with invalid password
+ ✔ Users can logout
+
+Email Verification (Tests\Feature\Auth\EmailVerification)
+ ✔ Email verification screen can be rendered
+ ✔ Email can be verified
+ ✔ Email is not verified with invalid hash
+
+Example (Tests\Feature\Example)
+ ✔ The application returns a successful response
+
+Example (Tests\Unit\Example)
+ ✔ That true is true
+
+Lost Found (Tests\Feature\LostFound)
+ ✔ Store rejects empty form
+ ✔ Search does not crash
+ ✔ Index is displayed
+ ✔ User cannot update another users lostfound
+ ✔ User cannot delete another users lostfound
+
+Pages Display (Tests\Feature\PagesDisplay)
+ ✔ User pages are displayed
+ ✔ Admin pages are displayed
+ ✔ Animal search by title
+ ✔ Senior filter excludes young animals
+ ✔ Lostfound type filter
+
+Password Confirmation (Tests\Feature\Auth\PasswordConfirmation)
+ ✔ Confirm password screen can be rendered
+ ✔ Password can be confirmed
+ ✔ Password is not confirmed with invalid password
+
+Password Reset (Tests\Feature\Auth\PasswordReset)
+ ✔ Reset password link screen can be rendered
+ ✔ Reset password link can be requested
+ ✔ Reset password screen can be rendered
+ ✔ Password can be reset with valid token
+
+Password Update (Tests\Feature\Auth\PasswordUpdate)
+ ✔ Password can be updated
+ ✔ Correct password must be provided to update password
+
+Photo Upload (Tests\Feature\PhotoUpload)
+ ✔ Photo of 2048 kb is accepted
+ ✔ Photo of 2049 kb is rejected
+ ✔ Pdf is rejected as photo
+
+Profile (Tests\Feature\Profile)
+ ✔ Profile page is displayed
+ ✔ Profile information can be updated
+ ✔ Email verification status is unchanged when the email address is unchanged
+ ✔ User can delete their account
+ ✔ Correct password must be provided to delete account
+
+Registration (Tests\Feature\Auth\Registration)
+ ✔ Registration screen can be rendered
+ ✔ New users can register
+
+Role Access (Tests\Feature\RoleAccess)
+ ✔ Guest cannot access admin dashboard
+ ✔ Simple user cannot access admin dashboard
+ ✔ Admin can access admin dashboard
+ ✔ Simple user cannot delete vet
+ ✔ Simple user cannot create vet
+ ✔ Simple user cannot update vet
+ ✔ Vet show page is displayed
+
+User Model (Tests\Unit\UserModel)
+ ✔ Password is hashed and verifiable
+ ✔ Already hashed password is not hashed again
+ ✔ Password is hidden in serialization
+ ✔ User has many animals and lostfound
+ ✔ Role is mass assignable
+
+Vet Admin (Tests\Feature\VetAdmin)
+ ✔ Admin can create vet
+ ✔ Admin can update vet
+ ✔ Admin can delete vet
+ ✔ Simple user can still view vets
+
+Vet Validation (Tests\Feature\VetValidation)
+ ✔ Admin cannot create vet without name
+ ✔ Admin cannot create vet with invalid email
+ ✔ Admin cannot update vet with empty name
+
+OK (103 tests, 500 assertions)

@@ -26,6 +26,8 @@
             <file>tests/Unit/AdminMiddlewareTest.php</file>
             <file>tests/Unit/UserModelTest.php</file>
             <file>tests/Unit/AnimalModelTest.php</file>
+            <file>tests/Feature/LostFoundCrudTest.php</file>
+            <file>tests/Feature/VetSearchTest.php</file>
             <file>tests/Feature/VetAdminTest.php</file>
         </testsuite>
     </testsuites>
