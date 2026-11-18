@@ -1,0 +1,114 @@
+
+{
+  "info": {
+    "name": "Patte Douce API Tests",
+    "description": "Collection de tests API REST pour l'application Patte Douce.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    },
+    {
+      "key": "animal_id",
+      "value": "1"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Liste animaux",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/animals"
+      }
+    },
+    {
+      "name": "Détail animal",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/animals/{{animal_id}}"
+      }
+    },
+    {
+      "name": "Animal inexistant",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/animals/99999999"
+      }
+    },
+    {
+      "name": "Création animal",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titre\": \"Chat Postman\",\n  \"description\": \"Animal créé pour tester l'API\",\n  \"age\": 3,\n  \"race\": \"Persan\",\n  \"user_id\": 1\n}"
+        },
+        "url": "{{base_url}}/api/animals"
+      }
+    },
+    {
+      "name": "Utilisateur connecté",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{base_url}}/api/user"
+      }
+    },
+    {
+      "name": "Utilisateur sans authentification",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/user"
+      }
+    }
+  ]
+}
