@@ -58,27 +58,31 @@ class LostFoundController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+        public function store(Request $request)
     {
+        $data = $request->validate([
+            'type' => 'required|string|max:50',
+            'description' => 'required|string|max:2000',
+            'localisation' => 'required|string|max:255',
+            'contact' => 'required|string|max:50',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
         $photoName = null;
 
-        // upload image
-        if($request->hasFile('photo')){
-
+        if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
-
-            $photoName = time().'.'.$photo->getClientOriginalExtension();
-
-            $photo->move(public_path('uploads'), $photoName);
+            $photoName = time().'.'.$photo->extension();
+            $photo->storeAs('', $photoName, 'uploads');
         }
 
         LostFound::create([
-            'type' => $request->type,
-            'description' => $request->description,
-            'localisation' => $request->localisation,
-            'contact' => $request->contact,
+            'type' => $data['type'],
+            'description' => $data['description'],
+            'localisation' => $data['localisation'],
+            'contact' => $data['contact'],
             'photo' => $photoName,
-            'user_id' => auth()->id()
+            'user_id' => auth()->id(),
         ]);
 
         return redirect()->route('lost-found.index');
@@ -96,11 +100,14 @@ class LostFoundController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+     public function edit(string $id)
     {
         $lost = LostFound::findOrFail($id);
+        abort_if($lost->user_id !== auth()->id(), 403);
+
         return view('lost-found.edit', compact('lost'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -108,13 +115,16 @@ class LostFoundController extends Controller
     public function update(Request $request, string $id)
     {
         $lost = LostFound::findOrFail($id);
+        abort_if($lost->user_id !== auth()->id(), 403);
 
-        $lost->update([
-        'type' => $request->type,
-        'description' => $request->description,
-        'localisation' => $request->localisation,
-        'contact' => $request->contact,
+        $data = $request->validate([
+            'type' => 'required|string|max:50',
+            'description' => 'required|string|max:2000',
+            'localisation' => 'required|string|max:255',
+            'contact' => 'required|string|max:50',
         ]);
+
+        $lost->update($data);
 
         return redirect()->route('lost-found.index');
     }
@@ -122,11 +132,14 @@ class LostFoundController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+     public function destroy(string $id)
     {
-        LostFound::findOrFail($id)->delete();
+        $lost = LostFound::findOrFail($id);
+        abort_if($lost->user_id !== auth()->id(), 403);
 
-    return back();
+        $lost->delete();
+
+        return back();
     }
     public function myLostFound()
     {
