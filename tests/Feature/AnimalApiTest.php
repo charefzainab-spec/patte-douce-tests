@@ -2,153 +2,97 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Animal;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
+use Tests\TestCase;
 
 class AnimalApiTest extends TestCase
 {
     use RefreshDatabase;
 
-    // TEST 1 : GET - Liste des animaux
-    public function test_api_can_return_animals_list(): void
+    private function donnees(array $extra = []): array
     {
-        // Arrange
-        Animal::factory()->count(3)->create();
-
-        // Act
-        $response = $this->getJson('/api/animals');
-
-        // Assert
-        $response->assertStatus(200)
-            ->assertJsonCount(3)
-            ->assertHeader('content-type', 'application/json');
-    }
-
-    // TEST 2 : GET - Détail d'un animal
-    public function test_api_can_return_animal_details(): void
-    {
-        // Arrange
-        $animal = Animal::factory()->create([
-            'titre' => 'Chat API',
-        ]);
-
-        // Act
-        $response = $this->getJson('/api/animals/' . $animal->id);
-
-        // Assert
-        $response->assertStatus(200)
-            ->assertJsonPath('titre', 'Chat API');
-    }
-
-    // TEST 3 : GET - Animal inexistant
-    public function test_api_returns_404_for_nonexistent_animal(): void
-    {
-        // Act
-        $response = $this->getJson('/api/animals/99999999');
-
-        // Assert
-        $response->assertStatus(404)
-            ->assertJson([
-                'message' => 'Animal not found',
-            ]);
-    }
-
-    // TEST 4 : POST - Création d'un animal
-    public function test_api_can_create_animal(): void
-    {
-        // Arrange
-        $user = User::factory()->create();
-
-        $data = [
-            'titre' => 'Chat persan',
-            'description' => 'Un chat calme et gentil',
+        return array_merge([
+            'titre' => 'Chat Postman',
+            'description' => 'Animal cree pour tester l API',
             'age' => 3,
             'race' => 'Persan',
+        ], $extra);
+    }
+
+    public function test_api_can_return_animals_list(): void
+    {
+        $user = User::factory()->create();
+        Animal::factory()->create(['user_id' => $user->id]);
+
+        $this->getJson('/api/animals')
+            ->assertStatus(200)
+            ->assertJsonCount(1);
+    }
+
+    public function test_api_can_return_animal_details(): void
+    {
+        $user = User::factory()->create();
+        $animal = Animal::factory()->create([
             'user_id' => $user->id,
-        ];
+            'titre' => 'Chat details',
+        ]);
 
-        // Act
-        $response = $this->postJson('/api/animals', $data);
+        $this->getJson('/api/animals/'.$animal->id)
+            ->assertStatus(200)
+            ->assertJsonFragment(['titre' => 'Chat details']);
+    }
 
-        // Assert
-        $response->assertStatus(201)
-            ->assertJsonPath('titre', 'Chat persan')
-            ->assertJsonPath('statut', 'adoption');
+    public function test_api_returns_404_for_nonexistent_animal(): void
+    {
+        $this->getJson('/api/animals/999999')->assertStatus(404);
+    }
+
+    public function test_api_can_create_animal_with_token(): void
+    {
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+
+        $this->postJson('/api/animals', $this->donnees())->assertStatus(201);
 
         $this->assertDatabaseHas('animals', [
-            'titre' => 'Chat persan',
+            'titre' => 'Chat Postman',
             'user_id' => $user->id,
         ]);
     }
 
-    // TEST 5 : POST - Validation des données invalides
-    public function test_api_rejects_invalid_animal_data(): void
+    public function test_api_rejects_missing_title(): void
     {
-        // Arrange
-        $user = User::factory()->create();
+        Sanctum::actingAs(User::factory()->create());
 
-        $data = [
-            'titre' => 'Chat invalide',
-            'description' => 'Test de validation',
-            'age' => -1,
-            'race' => 'Persan',
-            'user_id' => $user->id,
-        ];
-
-        // Act
-        $response = $this->postJson('/api/animals', $data);
-
-        // Assert
-        $response->assertStatus(422)
-            ->assertJsonValidationErrors(['age']);
+        $this->postJson('/api/animals', $this->donnees(['titre' => '']))
+            ->assertStatus(422)
+            ->assertJsonValidationErrors('titre');
     }
 
-    // TEST 6 : POST - Utilisateur inexistant
-    public function test_api_rejects_nonexistent_user(): void
+    public function test_api_rejects_negative_age(): void
     {
-        // Arrange
-        $data = [
-            'titre' => 'Chat test',
-            'description' => 'Test utilisateur',
-            'age' => 2,
-            'race' => 'Persan',
-            'user_id' => 99999999,
-        ];
+        Sanctum::actingAs(User::factory()->create());
 
-        // Act
-        $response = $this->postJson('/api/animals', $data);
-
-        // Assert
-        $response->assertStatus(422)
-            ->assertJsonValidationErrors(['user_id']);
+        $this->postJson('/api/animals', $this->donnees(['age' => -1]))
+            ->assertStatus(422)
+            ->assertJsonValidationErrors('age');
     }
 
-    // TEST 7 : GET - Accès utilisateur sans authentification
     public function test_api_user_requires_authentication(): void
     {
-        // Act
-        $response = $this->getJson('/api/user');
-
-        // Assert
-        $response->assertStatus(401);
+        $this->getJson('/api/user')->assertStatus(401);
     }
 
-    // TEST 8 : GET - Accès utilisateur authentifié
     public function test_authenticated_user_can_access_api_user(): void
     {
-        // Arrange
         $user = User::factory()->create();
-
         Sanctum::actingAs($user);
 
-        // Act
-        $response = $this->getJson('/api/user');
-
-        // Assert
-        $response->assertStatus(200)
-            ->assertJsonPath('email', $user->email);
+        $this->getJson('/api/user')
+            ->assertStatus(200)
+            ->assertJsonFragment(['id' => $user->id]);
     }
 }

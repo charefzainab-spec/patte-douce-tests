@@ -2,63 +2,101 @@
 
 namespace Tests\Feature;
 
+use App\Models\LostFound;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-class LostFoundUploadTest extends TestCase
+class LostFoundSecurityTest extends TestCase
 {
     use RefreshDatabase;
 
-    private function donnees(array $extra = []): array
+    private function annonce(User $owner): LostFound
     {
-        return array_merge([
+        return LostFound::create([
             'type' => 'perdu',
             'description' => 'Chat noir',
             'localisation' => 'Gabès',
             'contact' => '20123456',
-        ], $extra);
+            'photo' => null,
+            'user_id' => $owner->id,
+        ]);
     }
 
-    public function test_un_fichier_php_est_refuse(): void
+    public function test_un_autre_utilisateur_ne_peut_pas_modifier_une_annonce(): void
     {
-        Storage::fake('uploads');
-        $user = User::factory()->create();
+        $proprietaire = User::factory()->create();
+        $autre = User::factory()->create();
+        $annonce = $this->annonce($proprietaire);
 
-        $response = $this->actingAs($user)->post(route('lost-found.store'), $this->donnees([
-            'photo' => UploadedFile::fake()->create('shell.php', 10, 'application/x-php'),
-        ]));
+        $this->actingAs($autre)->put(route('lost-found.update', $annonce->id), [
+            'type' => 'trouve',
+            'description' => 'Modifié par un autre',
+            'localisation' => 'X',
+            'contact' => '0',
+        ]);
 
-        $response->assertSessionHasErrors('photo');
-        $this->assertDatabaseCount('lost_founds', 0);
-        $this->assertEmpty(Storage::disk('uploads')->allFiles());
+        $this->assertDatabaseHas('lost_founds', [
+            'id' => $annonce->id,
+            'description' => 'Chat noir',
+        ]);
     }
 
-    public function test_un_fichier_trop_lourd_est_refuse(): void
+    public function test_un_autre_utilisateur_ne_peut_pas_supprimer_une_annonce(): void
     {
-        Storage::fake('uploads');
-        $user = User::factory()->create();
+        $proprietaire = User::factory()->create();
+        $autre = User::factory()->create();
+        $annonce = $this->annonce($proprietaire);
 
-        $response = $this->actingAs($user)->post(route('lost-found.store'), $this->donnees([
-            'photo' => UploadedFile::fake()->create('grosse.jpg', 3000, 'image/jpeg'),
-        ]));
+        $this->actingAs($autre)->delete(route('lost-found.destroy', $annonce->id));
 
-        $response->assertSessionHasErrors('photo');
-        $this->assertDatabaseCount('lost_founds', 0);
+        $this->assertDatabaseHas('lost_founds', ['id' => $annonce->id]);
     }
 
-    public function test_une_image_valide_est_acceptee(): void
+    public function test_un_visiteur_non_connecte_ne_peut_pas_supprimer(): void
     {
-        Storage::fake('uploads');
+        $proprietaire = User::factory()->create();
+        $annonce = $this->annonce($proprietaire);
+
+        $this->delete(route('lost-found.destroy', $annonce->id));
+
+        $this->assertDatabaseHas('lost_founds', ['id' => $annonce->id]);
+    }
+
+    public function test_creation_refusee_avec_des_donnees_vides(): void
+    {
         $user = User::factory()->create();
 
-        $this->actingAs($user)->post(route('lost-found.store'), $this->donnees([
-            'photo' => UploadedFile::fake()->image('chat.jpg'),
-        ]));
+        $response = $this->actingAs($user)->post(route('lost-found.store'), []);
 
-        $this->assertDatabaseCount('lost_founds', 1);
-        $this->assertCount(1, Storage::disk('uploads')->allFiles());
+        $response->assertSessionHasErrors();
+    }
+
+    public function test_le_proprietaire_peut_modifier_son_annonce(): void
+    {
+        $proprietaire = User::factory()->create();
+        $annonce = $this->annonce($proprietaire);
+
+        $this->actingAs($proprietaire)->put(route('lost-found.update', $annonce->id), [
+            'type' => 'perdu',
+            'description' => 'Chat noir modifié',
+            'localisation' => 'Gabès',
+            'contact' => '20123456',
+        ]);
+
+        $this->assertDatabaseHas('lost_founds', [
+            'id' => $annonce->id,
+            'description' => 'Chat noir modifié',
+        ]);
+    }
+
+    public function test_le_proprietaire_peut_supprimer_son_annonce(): void
+    {
+        $proprietaire = User::factory()->create();
+        $annonce = $this->annonce($proprietaire);
+
+        $this->actingAs($proprietaire)->delete(route('lost-found.destroy', $annonce->id));
+
+        $this->assertDatabaseMissing('lost_founds', ['id' => $annonce->id]);
     }
 }

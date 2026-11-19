@@ -21,4 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/animals', [AnimalApiController::class, 'index']);
 Route::get('/animals/{id}', [AnimalApiController::class, 'show']);
-Route::post('/animals', [AnimalApiController::class, 'store']);
+Route::middleware('auth:sanctum')->post('/animals', [AnimalApiController::class, 'store']);

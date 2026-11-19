@@ -29,14 +29,14 @@ class AnimalApiController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'titre' => 'required|string',
+            'titre' => 'required|string|max:255',
             'description' => 'required|string',
             'age' => 'required|integer|min:0',
-            'race' => 'required|string',
-            'user_id' => 'required|exists:users,id',
+            'race' => 'required|string|max:255',
         ]);
 
         $animal = Animal::create($validated + [
+            'user_id' => $request->user()->id,
             'statut' => 'adoption',
         ]);
 
