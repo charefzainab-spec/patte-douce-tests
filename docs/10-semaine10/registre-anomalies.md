@@ -1,56 +1,28 @@
-# Registre des anomalies – Patte Douce (Semaine 10)
+# Registre des anomalies – Patte Douce (semaines 5 à 10)
 
-## 1. Objectif
-Consolider en un seul tableau toutes les anomalies relevées pendant la campagne (semaines 5 à 9), avec leur sévérité, leur priorité et leur statut, afin de préparer la décision de livraison.
+Sévérité = gravité technique. Priorité = urgence de correction.
 
-## 2. Échelles utilisées
+| ID | Description | Source | Sévérité | Priorité | Preuve avant | Preuve après | Statut |
+|---|---|---|---|---|---|---|---|
+| ANO-01 | Pas de champ de statut pour les annonces Lost & Found | S5, lecture de code | Mineure | Basse | Migration sans colonne statut | – | Hors exigence (amélioration) |
+| ANO-02 | Modification et suppression d'une annonce Lost & Found par un autre utilisateur | S5, confirmée en S10 | Critique | Haute | 2 tests en échec (annonce modifiée puis supprimée) | LostFoundSecurityTest 6/6 | Corrigée et retestée |
+| ANO-03 | Aucune validation des données Lost & Found | S5, confirmée en S10 | Majeure | Haute | 1 test en échec | LostFoundSecurityTest 6/6 | Corrigée et retestée |
+| ANO-04 | Champ photo sans label (axe : critical) | S9 accessibilité | Majeure | Haute | Rapport axe | – | Ouverte |
+| ANO-05 | Contraste insuffisant, accueil (11 éléments) | S9 accessibilité | Mineure (axe : serious) | Moyenne | Rapport axe | – | Ouverte |
+| ANO-06 | Contraste insuffisant, login (4 éléments) | S9 accessibilité | Mineure (axe : serious) | Moyenne | Rapport axe | – | Ouverte |
+| ANO-07 | Contraste insuffisant, /animals (44 éléments) | S9 accessibilité | Mineure (axe : serious) | Moyenne | Rapport axe | – | Ouverte |
+| ANO-08 | Contraste insuffisant, formulaire (1 élément) | S9 accessibilité | Mineure (axe : serious) | Basse | Rapport axe | – | Ouverte |
+| ANO-09 | Upload Lost & Found sans contrôle de type ni de taille | S10, lecture de code | Critique (potentielle) | Haute | Extension prise chez le client, aucune validation | `.php` et 3 000 Ko refusés, LostFoundUploadTest 3/3 | Corrigée et retestée |
+| ANO-10 | Recherche combinée au filtre de type | S10, lecture de code | À confirmer | Moyenne | – | – | Non testée |
+| ANO-11 | `POST /api/animals` accessible sans authentification (EX-19) | S10, test + route:list | Critique | Haute | 201 reçu au lieu de 401 ; route sans `auth:sanctum` | 401 ; AnimalApiSecurityTest 4/4 | Corrigée et retestée |
+| ANO-12 | `user_id` pris du corps de la requête : annonce créée au nom d'un autre | S10, test | Majeure | Haute | Annonce enregistrée pour l'utilisateur 2 avec le jeton de l'utilisateur 1 | `user_id` = utilisateur du jeton | Corrigée et retestée |
+| ANO-13 | Pas de `max:255` sur titre et race de l'API (EX-06) | S10, lecture de code | Mineure | Moyenne | Le premier test passait à tort (le 422 venait d'un autre champ) | 256 caractères → 422 sur `titre` ; 255 → 201 | Corrigée et retestée |
 
-**Sévérité** (gravité technique) :
-- **Critique** : faille de sécurité, perte de données ou fonctionnalité principale inutilisable
-- **Majeure** : fonctionnalité importante dégradée ou donnée non contrôlée
-- **Mineure** : défaut de confort, d'accessibilité ou d'évolution sans blocage fonctionnel
+## Synthèse
+- 13 anomalies : 6 corrigées et retestées (ANO-02, 03, 09, 11, 12, 13), 5 ouvertes (accessibilité), 1 à confirmer (ANO-10), 1 hors exigence (ANO-01).
+- Critiques : 3 (ANO-02, 09, 11), toutes corrigées.
+- Semaines 6 et 8 : aucune anomalie enregistrée. Mais en S8, le test « POST sans jeton » n'avait pas été exécuté : ANO-11 est apparue en S10.
 
-**Priorité** (urgence de correction) : Haute / Moyenne / Basse
-
-**Statut** : À vérifier (relevée à la lecture du code, pas encore confirmée par un test) / Ouverte (confirmée par un test) / Corrigée / Corrigée et retestée
-
-## 3. Registre
-
-| ID | Description | Source | Module / page | Sévérité | Priorité | Statut |
-|---|---|---|---|---|---|---|
-| ANO-01 | La table `lost_founds` n'a pas de champ statut pour suivre le cycle de vie d'une annonce | S5, fiches-anomalies | Lost & Found | Mineure | Moyenne | À vérifier |
-| ANO-02 | Pas de vérification de propriété dans `update` et `destroy` : un autre utilisateur pourrait modifier ou supprimer une annonce | S5, fiches-anomalies | Lost & Found | Critique (si confirmée) | Haute | À vérifier |
-| ANO-03 | La méthode `store` utilise les données de la requête sans validation explicite | S5, fiches-anomalies | Lost & Found | Majeure (si confirmée) | Moyenne | À vérifier |
-| ANO-04 | Champ photo du formulaire sans label (règle axe `label`, impact critical) | S9, accessibilité | `/animals/create` | Majeure | Haute | Ouverte |
-| ANO-05 | Contraste de couleurs insuffisant, 11 éléments (ex. lien du menu « register ») | S9, accessibilité | `/` | Mineure | Moyenne | Ouverte |
-| ANO-06 | Contraste de couleurs insuffisant, 4 éléments (ex. sous-titre de l'en-tête) | S9, accessibilité | `/login` | Mineure | Moyenne | Ouverte |
-| ANO-07 | Contraste de couleurs insuffisant, 44 éléments (ex. lien actif du menu) | S9, accessibilité | `/animals` | Mineure | Moyenne | Ouverte |
-| ANO-08 | Contraste de couleurs insuffisant sur un bouton | S9, accessibilité | `/animals/create` | Mineure | Basse | Ouverte |
-
-Sévérité des anomalies d'accessibilité : proposition de l'équipe de test. L'outil axe-core les classe « serious » (contraste) et « critical » (label), ce qui peut justifier de relever la sévérité du contraste si le public cible inclut des personnes malvoyantes.
-
-## 4. Points à vérifier (non enregistrés comme anomalies)
-
-| Observation | Source | Action |
-|---|---|---|
-| La balise `<html>` d'une page (dashboard) porte `lang="en"` alors que le contenu est en français | S9, journal d'erreur Playwright | Vérifier le gabarit Blade principal ; si confirmé, créer ANO-09 |
-| Les routes API exposées sont limitées à 4 (liste, détail, création, utilisateur) ; pas de modification ni de suppression via l'API | S8, analyse-api | Question de couverture, pas une anomalie |
-
-## 5. Éléments exclus du registre
-- Les 3 échecs de la suite de régression (S9) étaient des erreurs dans les tests eux-mêmes (locator, URL attendue, timeout), corrigées ; ce ne sont pas des défauts de l'application.
-- Semaine 6 : 36 tests réussis, 0 échec, donc aucune anomalie issue de l'exécution automatisée. La couverture de 49,9 % est traitée comme un risque (voir risques résiduels), pas comme une anomalie.
-- Semaine 8 : aucune anomalie documentée dans `analyse-api.md`.
-
-## 6. Synthèse (avant correction)
-
-| Statut | Nombre |
-|---|---|
-| À vérifier | 3 (ANO-01, ANO-02, ANO-03) |
-| Ouverte | 5 (ANO-04 à ANO-08) |
-| Corrigée | 0 |
-| **Total** | **8** |
-
-Anomalies à traiter en premier : ANO-02 (à confirmer d'urgence par un test à deux utilisateurs), ANO-04 (label), puis ANO-03.
-
-## 7. Mise à jour après correction
-[À compléter après la réexécution des tests : statut final de chaque anomalie, date et test de preuve.]
+## Remarques
+- ANO-02, 03 et 09 ont d'abord été identifiées par lecture de code ; seuls les tests exécutés les ont confirmées.
+- Les 3 tests d'`AnimalApiTest` devenus rouges après la correction (401 reçu) vérifiaient l'ancien comportement et ont été réécrits : ce n'est pas une régression.

@@ -1,22 +1,26 @@
 # Bilan de campagne – Patte Douce
 
-| Semaine | Livrable principal | Résultat |
-|---|---|---|
-| 1-4 | Fiche projet, risques, plan de test, référentiel, catalogue de cas | Cadrage |
-| 5 | Tests exploratoires, fiches d'anomalies | 3 anomalies (ANO-01 à ANO-03) |
-| 6 | Tests unitaires et Feature, couverture | 36 réussis, 0 échec, couverture 49,9 % |
-| 7 | [à compléter] | [à compléter] |
-| 8 | Analyse API | Aucune anomalie |
-| 9 | Accessibilité, performance, régression | 5 anomalies ; régression 6/6 ; e2e 9/9 |
-| 10 | Campagne finale | Voir ci-dessous |
+## Chiffres
+| Indicateur | Valeur |
+|---|---|
+| Tests PHP | 36 (S6), 41 (S7), 62 (S10), 0 échec |
+| Tests e2e Playwright | 9/9, régression 6/6 (deux passages après correction) |
+| Anomalies | 13 : 6 corrigées et retestées, 5 ouvertes (accessibilité), 1 à confirmer, 1 hors exigence |
+| Anomalies critiques | 3, toutes corrigées |
+| Couverture de code | 49,9 % (S6), non mesurée en S10 |
 
-## Chiffres de la campagne
-- Anomalies consolidées : 10 (S5 : 3, S9 : 5, S10 : 2)
-- Corrigées et retestées : ANO-02, ANO-03 ; ANO-09 [à confirmer]
-- Restantes : [à compléter après relance]
+## Ce qui a bien fonctionné
+- Les tests d'autorisation ont trouvé 2 failles critiques (annonces d'autrui, API sans authentification) que les tests précédents ne cherchaient pas.
+- Le principe « test en échec avant, au vert après » donne une preuve claire de chaque correction.
+
+## Limites
+- Vétérinaires, gestion des utilisateurs, recherche et propriété des annonces d'animaux : non testés.
+- Couverture de code non mesurée en S10.
+- Mesures de performance en local uniquement.
+- Les tests e2e créent des données dans l'application.
 
 ## Leçons apprises
-- Un échec de test avant correction est une preuve, pas un problème.
-- La lecture de code identifie, seul le test exécuté confirme.
-- `phpunit.xml` doit isoler la base de test avant d'utiliser RefreshDatabase.
-- Les échecs de la semaine 9 venaient des tests, ceux de la semaine 10 de vraies failles.
+- Un script écrit mais non exécuté ne prouve rien : en S8, le test « POST sans jeton » n'avait pas été exécuté et ANO-11 est restée cachée.
+- Un test qui passe n'est pas forcément un bon test : le premier test de `max:255` passait pour une mauvaise raison (ANO-13).
+- Un échec avant correction est une preuve utile.
+- Les anciens tests qui vérifient l'ancien comportement doivent être réécrits après une correction légitime.
