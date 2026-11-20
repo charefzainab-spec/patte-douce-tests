@@ -1,4 +1,3 @@
-cat > docs/06-semaine6/bilan-semaine6.md <<'EOF'
 # Bilan — Semaine 6
 
 ## Objectifs réalisés
@@ -37,4 +36,3 @@ automatisés et de vérifier plusieurs éléments essentiels
 du modèle Animal de Patte Douce.
 
 Les résultats confirment que les tests exécutés sont réussis.
-EOF

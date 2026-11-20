@@ -1,4 +1,3 @@
-cat > docs/06-semaine6/rapport-execution.md <<'EOF'
 # Rapport d'exécution — Semaine 6
 
 ## 1. Commande exécutée
@@ -44,4 +43,3 @@ L'exécution confirme que les 36 tests sont passés avec succès
 et que 80 assertions ont été vérifiées.
 
 Aucune erreur n'a été détectée.
-EOF

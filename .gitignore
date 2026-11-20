@@ -29,3 +29,5 @@ node_modules/
 /playwright/.auth/
 
 public/uploads/
+
+screenshots/

@@ -1,4 +1,3 @@
-cat > docs/06-semaine6/analyse-couverture.md <<'EOF'
 # Analyse de la couverture de code
 
 ## 1. Outil utilisé
@@ -43,4 +42,3 @@ La couverture globale est de 49.9 %.
 La couverture obtenue constitue une première mesure.
 Des tests supplémentaires permettront d'améliorer
 la qualité et la fiabilité de l'application.
-EOF

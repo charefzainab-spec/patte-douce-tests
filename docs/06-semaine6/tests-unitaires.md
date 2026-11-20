@@ -1,4 +1,3 @@
-cat > docs/06-semaine6/tests-unitaires.md <<'EOF'
 # Semaine 6 — Tests unitaires automatisés
 
 ## 1. Objectif
@@ -38,4 +37,3 @@ Chaque test utilise trois étapes :
 Les cinq tests unitaires sont réussis.
 
 Aucune erreur n'a été détectée pendant leur exécution.
-EOF
