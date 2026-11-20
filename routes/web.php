@@ -36,9 +36,7 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->group(function () {
 
     /*
-    |--------------------------------------------------------------------------
     | Profile
-    |--------------------------------------------------------------------------
     */
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -46,9 +44,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     /*
-    |--------------------------------------------------------------------------
     | Animals
-    |--------------------------------------------------------------------------
     */
     Route::resource('animals', AnimalController::class);
 
@@ -57,45 +53,34 @@ Route::middleware(['auth'])->group(function () {
 
 
     /*
-    |--------------------------------------------------------------------------
     | Lost & Found
-    |--------------------------------------------------------------------------
     */
     Route::resource('lost-found', LostFoundController::class);
 
     Route::get('/my-lostfound', [LostFoundController::class, 'myLostFound'])
-    ->name('lostfound.my');
+        ->name('lostfound.my');
+
+
     /*
-    |--------------------------------------------------------------------------
-    | Veterinaires
-    |--------------------------------------------------------------------------
+    | Veterinaires : consultation seulement pour les utilisateurs connectés.
+    | La gestion (création, modification, suppression) est dans le groupe admin.
     */
-    Route::resource('vet', VeterinaireController::class);
+    Route::resource('vet', VeterinaireController::class)->only(['index', 'show']);
 
 
     /*
-    |--------------------------------------------------------------------------
     | User Dashboard
-    |--------------------------------------------------------------------------
     */
     Route::get('/user', function () {
         return view('user.dashboard');
     })->name('user.dashboard');
 
     Route::get('/veterinaires', [VeterinaireController::class, 'index'])
-    ->name('veterinaires.index');
-    /*
-    |--------------------------------------------------------------------------
-    | Vet Dashboard
-    |--------------------------------------------------------------------------
-    */
-    
+        ->name('veterinaires.index');
 
 
     /*
-    |--------------------------------------------------------------------------
-    | Admin Dashboard (admin only)
-    |--------------------------------------------------------------------------
+    | Admin (admin only)
     */
     Route::middleware(['admin'])->group(function () {
 
@@ -107,11 +92,15 @@ Route::middleware(['auth'])->group(function () {
                 'vetsCount' => Veterinaire::count(),
             ]);
         })->name('admin.dashboard');
+
         Route::resource('users', AdminUserController::class);
+
         Route::get('/admin/animals', [AnimalController::class, 'adminIndex'])
-        ->name('admin.animals');
+            ->name('admin.animals');
+
         Route::get('/admin/lost-found', [LostFoundController::class, 'adminIndex'])
-        ->name('admin.lostfound');
+            ->name('admin.lostfound');
+
         Route::get('/admin/veterinaires', [VeterinaireController::class, 'adminIndex'])
             ->name('admin.vets');
 
@@ -129,8 +118,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::delete('/admin/veterinaires/{id}', [VeterinaireController::class, 'destroy'])
             ->name('admin.vets.destroy');
-
-            });
+    });
 
 });
 
