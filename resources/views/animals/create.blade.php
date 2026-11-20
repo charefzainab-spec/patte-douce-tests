@@ -302,7 +302,7 @@
 
             <div class="mb-3">
                 <label>📷 Photo</label>
-                <input type="file" name="photo" class="form-control">
+                <input type="file" name="photo" class="form-control" aria-label="Photo de l'animal">
                 @error('photo')
                     <div class="input-error">{{ $message }}</div>
                 @enderror

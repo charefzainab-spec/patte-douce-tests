@@ -465,7 +465,7 @@
                     </div>
                     <input type="file" 
                            name="photo" 
-                           id="photo" 
+                           id="photo" aria-label="Photo de l'annonce" 
                            class="form-control" 
                            accept="image/*"
                            style="display: none;"

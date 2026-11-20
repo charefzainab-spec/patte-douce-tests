@@ -466,7 +466,7 @@
                         <span>🖼️</span>
                         <span id="fileLabelText">Changer la photo</span>
                     </div>
-                    <input type="file" name="photo" id="photoInput" accept="image/*">
+                    <input type="file" name="photo" id="photoInput" accept="image/*" aria-label="Photo de l'animal">
                 </div>
                 <div id="fileName" class="file-name"></div>
                 @error('photo')
